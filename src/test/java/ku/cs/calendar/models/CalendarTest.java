@@ -2,13 +2,13 @@ package ku.cs.calendar.models;
 
 import org.junit.Before;
 import org.junit.Test;
-
-
-import static org.junit.Assert.*;
-
+/**
+ * Wiwadh Chinanuphandh
+ * 5810400051
+ */
 public class CalendarTest {
 
-    Calendar c;
+    private Calendar c;
 
     @Before
     public void setUp() throws Exception {
