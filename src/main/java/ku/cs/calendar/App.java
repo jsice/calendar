@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ku.cs.calendar.controllers.MainController;
 
-
 /**
  * Wiwadh Chinanuphandh
  * 5810400051

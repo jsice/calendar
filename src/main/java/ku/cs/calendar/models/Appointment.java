@@ -52,6 +52,6 @@ public class Appointment implements Comparable<Appointment> {
         if (hr > ap.hr) return 1;
         if (min < ap.min) return -1;
         if (min > ap.min) return 1;
-        return 0;
+        return 1;
     }
 }

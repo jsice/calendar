@@ -98,6 +98,7 @@ public class Calendar {
     public static int getMonthDay(int m, int y) {
         if (m < 1 || m > 12 || y < 1) return -1;
         if (m == 2) {
+            y -= 543;
             if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
                 return monthDay.get(m) + 1;
             }

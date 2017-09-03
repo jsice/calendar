@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.MainController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="620.0" minWidth="10.0" prefWidth="600.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.0" minWidth="10.0" prefWidth="400.0" />
@@ -63,7 +63,7 @@
                <content>
                   <FlowPane fx:id="detailPanel" prefHeight="474.0" prefWidth="348.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#newAppointment" prefWidth="348.0" text="New Appointment" />
+                        <Button fx:id="newBtn" mnemonicParsing="false" onAction="#newAppointment" prefWidth="348.0" text="New Appointment" />
                      </children></FlowPane>
                </content></ScrollPane>
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="350.0" text="Clear All Appointments " />
