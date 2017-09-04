@@ -31,6 +31,7 @@ public class MainController {
     private SelectMonthController selectMonthCtrl;
     private SelectDateController selectDateCtrl;
     private AppointmentDetailController apDetailCtrl;
+    private AppointmentEditController apEditCtrl;
     private int selectedYear;
     private int selectedMonth;
     private int selectedDate;
@@ -38,7 +39,7 @@ public class MainController {
     private int shownMonth;
     private Calendar calendar;
     private FlowPane selectDatePane;
-    private GridPane selectMonthPane, apDetailPane;
+    private GridPane selectMonthPane, apDetailPane, apEditPane;
     private ArrayList<Label> appointmentLabels;
     @FXML
     private Button newBtn;
@@ -62,6 +63,7 @@ public class MainController {
         FXMLLoader selectMonthPaneLoader = new FXMLLoader(getClass().getResource("/select_month.fxml"));
         FXMLLoader selectDatePaneLoader = new FXMLLoader(getClass().getResource("/select_date.fxml"));
         FXMLLoader apDetailPaneLoader = new FXMLLoader(getClass().getResource("/ap_detail.fxml"));
+        FXMLLoader apEditPaneLoader = new FXMLLoader(getClass().getResource("/ap_edit.fxml"));
         this.selectMonthPane = selectMonthPaneLoader.load();
         this.selectDatePane = selectDatePaneLoader.load();
         this.selectMonthCtrl = selectMonthPaneLoader.getController();
@@ -75,6 +77,10 @@ public class MainController {
         this.apDetailPane = apDetailPaneLoader.load();
         this.apDetailCtrl = apDetailPaneLoader.getController();
         this.apDetailCtrl.setMainCtrl(this);
+
+        this.apEditPane = apEditPaneLoader.load();
+        this.apEditCtrl = apEditPaneLoader.getController();
+        this.apEditCtrl.setMainCtrl(this);
     }
 
     private FlowPane initNewAppointmentPanel() {
@@ -320,5 +326,13 @@ public class MainController {
 
     public void setShownMonth(int shownMonth) {
         this.shownMonth = shownMonth;
+    }
+
+    public AppointmentEditController getApEditCtrl() {
+        return apEditCtrl;
+    }
+
+    public GridPane getApEditPane() {
+        return apEditPane;
     }
 }

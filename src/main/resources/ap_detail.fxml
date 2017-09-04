@@ -11,7 +11,7 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.AppointmentDetailController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="121.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="121.0" />
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="231.0" minWidth="10.0" prefWidth="227.0" />
   </columnConstraints>
   <rowConstraints>
@@ -72,5 +72,6 @@
             <Button mnemonicParsing="false" onAction="#applyEditMode" text="edit" GridPane.columnIndex="1" />
          </children>
       </GridPane>
+      <Button mnemonicParsing="false" onAction="#back" text="Back" GridPane.rowIndex="3" />
    </children>
 </GridPane>

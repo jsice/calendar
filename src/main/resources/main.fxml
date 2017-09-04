@@ -66,7 +66,6 @@
                         <Button fx:id="newBtn" mnemonicParsing="false" onAction="#newAppointment" prefWidth="348.0" text="New Appointment" />
                      </children></FlowPane>
                </content></ScrollPane>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="350.0" text="Clear All Appointments " />
          </children>
       </FlowPane>
    </children>

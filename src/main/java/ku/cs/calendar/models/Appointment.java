@@ -47,6 +47,14 @@ public class Appointment implements Comparable<Appointment> {
         return min;
     }
 
+    public void setHr(int hr) {
+        this.hr = hr;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
     public int compareTo(Appointment ap) {
         if (hr < ap.hr) return -1;
         if (hr > ap.hr) return 1;
