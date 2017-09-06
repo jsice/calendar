@@ -19,7 +19,7 @@ public class CalendarTest {
     public void addAppointment() throws Exception {
         Appointment ap = new Appointment(new Date(2560, 8, 31 ), 1, 1);
         c.addAppointment(ap);
-        assert ap == c.getAppointments(31, 8, 2560).first();
+        assert ap == c.getAppointments(31, 8, 2560).peek();
     }
 
 }

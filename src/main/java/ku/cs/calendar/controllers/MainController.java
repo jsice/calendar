@@ -18,6 +18,7 @@ import ku.cs.calendar.models.Date;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.PriorityQueue;
 import java.util.TreeSet;
 
 /**
@@ -32,6 +33,7 @@ public class MainController {
     private SelectDateController selectDateCtrl;
     private AppointmentDetailController apDetailCtrl;
     private AppointmentEditController apEditCtrl;
+    private DatabaseManager dbManager;
     private int selectedYear;
     private int selectedMonth;
     private int selectedDate;
@@ -60,6 +62,7 @@ public class MainController {
 
     public void init() throws IOException {
         this.calendar = new Calendar();
+        this.dbManager = new DatabaseManager();
         FXMLLoader selectMonthPaneLoader = new FXMLLoader(getClass().getResource("/select_month.fxml"));
         FXMLLoader selectDatePaneLoader = new FXMLLoader(getClass().getResource("/select_date.fxml"));
         FXMLLoader apDetailPaneLoader = new FXMLLoader(getClass().getResource("/ap_detail.fxml"));
@@ -102,10 +105,10 @@ public class MainController {
         ok.setPrefWidth(174);
         ok.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                Appointment ap = new Appointment(new Date(selectedYear, selectedMonth , selectedDate), Integer.parseInt(hrField.getText()), Integer.parseInt(minField.getText()));
+                Appointment ap = new Appointment(new Date(selectedDate, selectedMonth , selectedYear), Integer.parseInt(hrField.getText()), Integer.parseInt(minField.getText()));
                 if (!titleField.getText().equals("")) ap.setTitle(titleField.getText());
                 calendar.addAppointment(ap);
-
+                dbManager.insertAppointment(ap);
                 titleField.setText("");
                 hrField.setText("");
                 minField.setText("");
@@ -141,7 +144,6 @@ public class MainController {
     }
 
     public void setToday() {
-//        java.util.Date today = new java.util.Date();
         java.util.Calendar today = new GregorianCalendar();
         selectedYear = today.get(java.util.Calendar.YEAR) + 543;
         selectedMonth = today.get(java.util.Calendar.MONTH) + 1;
@@ -151,17 +153,23 @@ public class MainController {
         mainBtn.setText(Calendar.getMonthName(selectedMonth) + ", " + selectedYear);
         selectedDateLabel.setText(Calendar.getMonthName(selectedMonth) + " " + selectedDate + ", " + selectedYear);
         this.selectDateCtrl.setDates();
+        ArrayList<Appointment> aps = dbManager.getAppointmentByDate(selectedDate, selectedMonth, selectedYear);
+        for (Appointment ap: aps) {
+            calendar.addAppointment(ap);
+        }
         showAppointments();
     }
 
     protected void showAppointments() {
         hideAppointments();
-        TreeSet<Appointment> appointments = calendar.getAppointments(selectedDate, selectedMonth, selectedYear);
+        PriorityQueue<Appointment> appointments = calendar.getAppointments(selectedDate, selectedMonth, selectedYear);
 
         for (Appointment ap: appointments) {
             final Appointment appointment = ap;
-            Label l = new Label(String.format("%02d:%02d  %s",ap.getHr(),ap.getMin(),ap.getTitle()));
-            l.setPrefWidth(348);
+            String title = ap.getTitle();
+            if (title.length() > 30) title = title.substring(0, 26)+"...";
+            Label l = new Label(String.format("%02d:%02d  %s",ap.getHr(),ap.getMin(),title));
+            l.setPrefWidth(324);
             l.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
                     hideAppointments();
@@ -238,101 +246,109 @@ public class MainController {
         detailPanel.getChildren().add(addPanel);
     }
 
-    public FlowPane getSelectDatePane() {
+    protected FlowPane getSelectDatePane() {
         return selectDatePane;
     }
 
-    public GridPane getSelectMonthPane() {
+    protected GridPane getSelectMonthPane() {
         return selectMonthPane;
     }
 
-    public Button getMainBtn() {
+    protected Button getMainBtn() {
         return mainBtn;
     }
 
-    public Button getDecreaseBtn() {
+    protected Button getDecreaseBtn() {
         return decreaseBtn;
     }
 
-    public Button getIncreaseBtn() {
+    protected Button getIncreaseBtn() {
         return increaseBtn;
     }
 
-    public FlowPane getMainPanel() {
+    protected FlowPane getMainPanel() {
         return mainPanel;
     }
 
-    public Label getSelectedDateLabel() {
+    protected Label getSelectedDateLabel() {
         return selectedDateLabel;
     }
 
-    public void setSelectedDate(int selectedDate) {
+    protected void setSelectedDate(int selectedDate) {
         this.selectedDate = selectedDate;
     }
 
-    public int getSelectedDate() {
+    protected int getSelectedDate() {
         return selectedDate;
     }
 
-    public FlowPane getDetailPanel() { return detailPanel; }
+    protected FlowPane getDetailPanel() { return detailPanel; }
 
-    public void setSelectedMonth(int selectedMonth) {
+    protected void setSelectedMonth(int selectedMonth) {
         this.selectedMonth = selectedMonth;
     }
 
-    public int getSelectedMonth() {
+    protected int getSelectedMonth() {
         return selectedMonth;
     }
 
-    public int getSelectedYear() {
+    protected int getSelectedYear() {
         return selectedYear;
     }
 
-    public SelectDateController getSelectDateCtrl() {
+    protected SelectDateController getSelectDateCtrl() {
         return selectDateCtrl;
     }
 
-    public SelectMonthController getSelectMonthCtrl() {
+    protected SelectMonthController getSelectMonthCtrl() {
         return selectMonthCtrl;
     }
 
-    public GridPane getApDetailPane() {
+    protected GridPane getApDetailPane() {
         return apDetailPane;
     }
 
-    public AppointmentDetailController getApDetailCtrl() {
+    protected AppointmentDetailController getApDetailCtrl() {
         return apDetailCtrl;
     }
 
-    public FlowPane getAddPanel() {
+    protected FlowPane getAddPanel() {
         return addPanel;
     }
 
-    public Button getNewBtn() {
+    protected Button getNewBtn() {
         return newBtn;
     }
 
-    public int getShownMonth() {
+    protected int getShownMonth() {
         return shownMonth;
     }
 
-    public int getShownYear() {
+    protected int getShownYear() {
         return shownYear;
     }
 
-    public void setSelectedYear(int selectedYear) {
+    protected void setSelectedYear(int selectedYear) {
         this.selectedYear = selectedYear;
     }
 
-    public void setShownMonth(int shownMonth) {
+    protected void setShownMonth(int shownMonth) {
         this.shownMonth = shownMonth;
     }
 
-    public AppointmentEditController getApEditCtrl() {
+    protected AppointmentEditController getApEditCtrl() {
         return apEditCtrl;
     }
 
-    public GridPane getApEditPane() {
+    protected GridPane getApEditPane() {
         return apEditPane;
+    }
+
+    protected Calendar getCalendar() {
+        return calendar;
+    }
+
+    public DatabaseManager getDbManager() {
+        return dbManager;
     }
 }

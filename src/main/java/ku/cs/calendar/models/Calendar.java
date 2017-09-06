@@ -49,40 +49,62 @@ public class Calendar {
         monthDay.put(12, 31);
     }
 
-    private HashMap<Integer, HashMap<Integer, HashMap<Integer, TreeSet<Appointment>>>> appointments;
+    private HashMap<Integer, HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>> appointments;
 
     public Calendar() {
-        this.appointments = new HashMap<Integer, HashMap<Integer, HashMap<Integer, TreeSet<Appointment>>>>();
+        this.appointments = new HashMap<Integer, HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>>();
 
     }
 
     public void addAppointment(Appointment ap) {
         Date startDate = ap.getDate();
         if (!this.appointments.containsKey(startDate.getYear())) {
-            this.appointments.put(startDate.getYear(), new HashMap<Integer, HashMap<Integer, TreeSet<Appointment>>>());
+            this.appointments.put(startDate.getYear(), new HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>());
         }
         if (!this.appointments.get(startDate.getYear()).containsKey(startDate.getMonth())) {
-            this.appointments.get(startDate.getYear()).put(startDate.getMonth(), new HashMap<Integer, TreeSet<Appointment>>());
+            this.appointments.get(startDate.getYear()).put(startDate.getMonth(), new HashMap<Integer, PriorityQueue<Appointment>>());
         }
         if (!this.appointments.get(startDate.getYear()).get(startDate.getMonth()).containsKey(startDate.getDate())) {
-            this.appointments.get(startDate.getYear()).get(startDate.getMonth()).put(startDate.getDate(), new TreeSet<Appointment>());
+            this.appointments.get(startDate.getYear()).get(startDate.getMonth()).put(startDate.getDate(), new PriorityQueue<Appointment>());
         }
 
         this.appointments.get(startDate.getYear()).get(startDate.getMonth()).get(startDate.getDate()).add(ap);
 
     }
 
-    public TreeSet<Appointment> getAppointments(int date, int month, int year) {
+    public PriorityQueue<Appointment> getAppointments(int date, int month, int year) {
         if (!this.appointments.containsKey(year)) {
-            this.appointments.put(year, new HashMap<Integer, HashMap<Integer, TreeSet<Appointment>>>());
+            this.appointments.put(year, new HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>());
         }
         if (!this.appointments.get(year).containsKey(month)) {
-            this.appointments.get(year).put(month, new HashMap<Integer, TreeSet<Appointment>>());
+            this.appointments.get(year).put(month, new HashMap<Integer, PriorityQueue<Appointment>>());
         }
         if (!this.appointments.get(year).get(month).containsKey(date)) {
-            this.appointments.get(year).get(month).put(date, new TreeSet<Appointment>());
+            this.appointments.get(year).get(month).put(date, new PriorityQueue<Appointment>());
         }
         return this.appointments.get(year).get(month).get(date);
+    }
+
+    public boolean hasAppointmentsOnDate(int date, int month, int year) {
+        if (!this.appointments.containsKey(year)) {
+            return false;
+        }
+        if (!this.appointments.get(year).containsKey(month)) {
+            return false;
+        }
+        if (!this.appointments.get(year).get(month).containsKey(date)) {
+            return false;
+        }
+        return true;
+    }
+
+    public void removeAppointment(Appointment ap) {
+        if (this.appointments.containsKey(ap.getDate().getYear()) &&
+                this.appointments.get(ap.getDate().getYear()).containsKey(ap.getDate().getMonth()) &&
+                this.appointments.get(ap.getDate().getYear()).get(ap.getDate().getMonth()).containsKey(ap.getDate().getDate())) {
+            PriorityQueue<Appointment> t = this.appointments.get(ap.getDate().getYear()).get(ap.getDate().getMonth()).get(ap.getDate().getDate());
+            if (t.contains(ap)) t.remove(ap);
+        }
     }
 
     public static String getMonthName(int m) {

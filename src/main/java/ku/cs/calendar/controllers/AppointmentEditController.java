@@ -25,6 +25,7 @@ public class AppointmentEditController {
         appointment.setHr(Integer.parseInt(hr.getText()));
         appointment.setMin(Integer.parseInt(min.getText()));
         this.mainCtrl.getApDetailCtrl().showDetail();
+        this.mainCtrl.getDbManager().updateAppointment(appointment);
         back();
     }
 
@@ -35,7 +36,11 @@ public class AppointmentEditController {
 
     @FXML
     protected void deleteThisAppointment(ActionEvent e){
-
+        this.mainCtrl.getCalendar().removeAppointment(appointment);
+        this.mainCtrl.getDbManager().deleteAppointment(appointment);
+        this.mainCtrl.getDetailPanel().getChildren().remove(this.mainCtrl.getApEditPane());
+        this.mainCtrl.getDetailPanel().getChildren().add(this.mainCtrl.getNewBtn());
+        this.mainCtrl.showAppointments();
     }
 
     protected void setup() {

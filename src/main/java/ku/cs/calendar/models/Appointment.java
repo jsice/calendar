@@ -5,6 +5,7 @@ package ku.cs.calendar.models;
  */
 public class Appointment implements Comparable<Appointment> {
 
+    private int id = -1;
     private Date date;
     private int hr;
     private int min;
@@ -60,6 +61,15 @@ public class Appointment implements Comparable<Appointment> {
         if (hr > ap.hr) return 1;
         if (min < ap.min) return -1;
         if (min > ap.min) return 1;
-        return 1;
+        return 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        if (this.id == -1)
+            this.id = id;
     }
 }

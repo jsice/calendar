@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Calendar;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -61,13 +63,20 @@ public class SelectDateController {
         mainCtrl.setSelectedMonth(mainCtrl.getShownMonth());
         mainCtrl.setSelectedYear(mainCtrl.getShownYear());
         mainCtrl.getSelectedDateLabel().setText(Calendar.getMonthName(mainCtrl.getSelectedMonth()) + " " + mainCtrl.getSelectedDate() + ", " + mainCtrl.getSelectedYear());
-        mainCtrl.showAppointments();
-
 
         mainCtrl.getDetailPanel().getChildren().remove(mainCtrl.getApDetailPane());
         mainCtrl.getDetailPanel().getChildren().remove(mainCtrl.getAddPanel());
         mainCtrl.getDetailPanel().getChildren().remove(mainCtrl.getNewBtn());
         mainCtrl.getDetailPanel().getChildren().add(mainCtrl.getNewBtn());
+
+        Calendar c = mainCtrl.getCalendar();
+        if (!c.hasAppointmentsOnDate(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear())) {
+            ArrayList<Appointment> appointments = mainCtrl.getDbManager().getAppointmentByDate(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear());
+            for (Appointment ap: appointments) {
+                c.addAppointment(ap);
+            }
+        }
+
         mainCtrl.showAppointments();
 
     }

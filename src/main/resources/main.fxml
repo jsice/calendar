@@ -61,7 +61,7 @@
             <Label fx:id="selectedDateLabel" alignment="CENTER" prefHeight="21.0" prefWidth="350.0" text="Selected Date" />
             <ScrollPane fx:id="detailArea" prefHeight="476.0" prefWidth="350.0">
                <content>
-                  <FlowPane fx:id="detailPanel" prefHeight="474.0" prefWidth="348.0">
+                  <FlowPane fx:id="detailPanel" alignment="TOP_CENTER" prefHeight="474.0" prefWidth="348.0">
                      <children>
                         <Button fx:id="newBtn" mnemonicParsing="false" onAction="#newAppointment" prefWidth="348.0" text="New Appointment" />
                      </children></FlowPane>
