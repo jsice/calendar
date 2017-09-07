@@ -95,6 +95,22 @@ public class Calendar {
         if (!this.appointments.get(year).get(month).containsKey(date)) {
             return false;
         }
+        if (this.appointments.get(year).get(month).get(date).size() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean hadAppointmentsOnDate(int date, int month, int year) {
+        if (!this.appointments.containsKey(year)) {
+            return false;
+        }
+        if (!this.appointments.get(year).containsKey(month)) {
+            return false;
+        }
+        if (!this.appointments.get(year).get(month).containsKey(date)) {
+            return false;
+        }
         return true;
     }
 

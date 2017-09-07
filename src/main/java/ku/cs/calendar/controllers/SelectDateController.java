@@ -70,7 +70,7 @@ public class SelectDateController {
         mainCtrl.getDetailPanel().getChildren().add(mainCtrl.getNewBtn());
 
         Calendar c = mainCtrl.getCalendar();
-        if (!c.hasAppointmentsOnDate(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear())) {
+        if (!c.hadAppointmentsOnDate(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear())) {
             ArrayList<Appointment> appointments = mainCtrl.getDbManager().getAppointmentByDate(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear());
             for (Appointment ap: appointments) {
                 c.addAppointment(ap);
