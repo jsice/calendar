@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<FlowPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.SelectDateController">
+<FlowPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.SelectDateController">
    <children>
       <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="490.0" prefWidth="560.0">
         <columnConstraints>
@@ -63,212 +63,212 @@
                   <Label alignment="CENTER" prefHeight="70.0" prefWidth="80.0" style="-fx-background-color: lightgrey;" text="Sat." />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel1" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="dateLabel1" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="1" textFill="RED" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="dateLabel2" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="2" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="dateLabel3" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="3" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="dateLabel4" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="4" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="dateLabel5" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="5" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel6" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="dateLabel6" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="6" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="dateLabel7" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="7" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel8" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="dateLabel8" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="8" textFill="RED" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel9" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="dateLabel9" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="9" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel10" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="dateLabel10" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="10" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="dateLabel11" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="11" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel12" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="dateLabel12" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="12" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel13" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="dateLabel13" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="13" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel14" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="dateLabel14" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="14" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel15" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="dateLabel15" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="15" textFill="RED" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel16" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="dateLabel16" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="16" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel17" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="dateLabel17" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="17" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel18" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="dateLabel18" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="18" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel19" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="dateLabel19" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="19" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel20" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="dateLabel20" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="20" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel21" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="dateLabel21" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="21" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel22" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="dateLabel22" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="22" textFill="RED" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel23" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="dateLabel23" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="23" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel24" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="dateLabel24" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="24" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel25" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="dateLabel25" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="25" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel26" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="dateLabel26" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="26" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel27" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="dateLabel27" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="27" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel28" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="dateLabel28" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="28" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel29" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="dateLabel29" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="29" textFill="RED" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel30" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="dateLabel30" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="30" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel31" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="dateLabel31" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" text="31" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel32" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="dateLabel32" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel33" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="dateLabel33" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel34" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="dateLabel34" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel35" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="dateLabel35" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel36" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="dateLabel36" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" textFill="RED" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel37" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="dateLabel37" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel38" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="dateLabel38" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel39" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="dateLabel39" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel40" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="dateLabel40" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel41" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="dateLabel41" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>
             </FlowPane>
-            <FlowPane fx:id="datePanel42" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="dateLabel42" alignment="CENTER" onMouseClicked="#selectDate" prefHeight="70.0" prefWidth="80.0" />
                </children>

@@ -1,5 +1,7 @@
 package ku.cs.calendar.models;
 
+import jdk.nashorn.internal.objects.NativeArray;
+
 import java.util.*;
 /**
  * Wiwadh Chinanuphandh
@@ -10,6 +12,7 @@ public class Calendar {
     private static HashMap<Integer, String> monthName = new HashMap<Integer, String>();
     private static HashMap<String, Integer> monthNum = new HashMap<String, Integer>();
     private static HashMap<Integer, Integer> monthDay = new HashMap<Integer, Integer>();
+
     static {
         monthName.put(1, "January");
         monthName.put(2, "February");
@@ -50,25 +53,30 @@ public class Calendar {
     }
 
     private HashMap<Integer, HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>> appointments;
+    private ArrayList<Appointment> repeatedAppointments;
 
     public Calendar() {
         this.appointments = new HashMap<Integer, HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>>();
-
+        this.repeatedAppointments = new ArrayList<Appointment>();
     }
 
     public void addAppointment(Appointment ap) {
-        Date startDate = ap.getDate();
-        if (!this.appointments.containsKey(startDate.getYear())) {
-            this.appointments.put(startDate.getYear(), new HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>());
-        }
-        if (!this.appointments.get(startDate.getYear()).containsKey(startDate.getMonth())) {
-            this.appointments.get(startDate.getYear()).put(startDate.getMonth(), new HashMap<Integer, PriorityQueue<Appointment>>());
-        }
-        if (!this.appointments.get(startDate.getYear()).get(startDate.getMonth()).containsKey(startDate.getDate())) {
-            this.appointments.get(startDate.getYear()).get(startDate.getMonth()).put(startDate.getDate(), new PriorityQueue<Appointment>());
-        }
+        if (ap.getRepeated() == Appointment.REPEATED_NEVER) {
+            Date startDate = ap.getDate();
+            if (!this.appointments.containsKey(startDate.getYear())) {
+                this.appointments.put(startDate.getYear(), new HashMap<Integer, HashMap<Integer, PriorityQueue<Appointment>>>());
+            }
+            if (!this.appointments.get(startDate.getYear()).containsKey(startDate.getMonth())) {
+                this.appointments.get(startDate.getYear()).put(startDate.getMonth(), new HashMap<Integer, PriorityQueue<Appointment>>());
+            }
+            if (!this.appointments.get(startDate.getYear()).get(startDate.getMonth()).containsKey(startDate.getDate())) {
+                this.appointments.get(startDate.getYear()).get(startDate.getMonth()).put(startDate.getDate(), new PriorityQueue<Appointment>());
+            }
 
-        this.appointments.get(startDate.getYear()).get(startDate.getMonth()).get(startDate.getDate()).add(ap);
+            this.appointments.get(startDate.getYear()).get(startDate.getMonth()).get(startDate.getDate()).add(ap);
+        } else {
+            this.repeatedAppointments.add(ap);
+        }
 
     }
 
@@ -82,7 +90,28 @@ public class Calendar {
         if (!this.appointments.get(year).get(month).containsKey(date)) {
             this.appointments.get(year).get(month).put(date, new PriorityQueue<Appointment>());
         }
-        return this.appointments.get(year).get(month).get(date);
+        PriorityQueue<Appointment> aps = new PriorityQueue<Appointment>(this.appointments.get(year).get(month).get(date));
+        for (Appointment ap: this.repeatedAppointments) {
+            if (year > ap.getDate().getYear() ||
+                    year == ap.getDate().getYear() && month > ap.getDate().getMonth() ||
+                    year == ap.getDate().getYear() && month == ap.getDate().getMonth() && date >= ap.getDate().getDate()) {
+                int repeated = ap.getRepeated();
+                if (repeated == Appointment.REPEATED_DAILY) {
+                    aps.add(ap);
+                } else if (repeated == Appointment.REPEATED_MONTHLY){
+                    if (date == ap.getDate().getDate()) {
+                        aps.add(ap);
+                    }
+                } else {
+                    java.util.Calendar c1 = new GregorianCalendar(year - 543, month - 1, date);
+                    int day1 = c1.get(java.util.Calendar.DAY_OF_WEEK);
+                    java.util.Calendar c2 = new GregorianCalendar(ap.getDate().getYear() - 543, ap.getDate().getMonth() - 1, ap.getDate().getDate());
+                    int day2 = c2.get(java.util.Calendar.DAY_OF_WEEK);
+                    if (day1 == day2) aps.add(ap);
+                }
+            }
+        }
+        return aps;
     }
 
     public boolean hasAppointmentsOnDate(int date, int month, int year) {
@@ -95,32 +124,21 @@ public class Calendar {
         if (!this.appointments.get(year).get(month).containsKey(date)) {
             return false;
         }
-        if (this.appointments.get(year).get(month).get(date).size() == 0) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean hadAppointmentsOnDate(int date, int month, int year) {
-        if (!this.appointments.containsKey(year)) {
-            return false;
-        }
-        if (!this.appointments.get(year).containsKey(month)) {
-            return false;
-        }
-        if (!this.appointments.get(year).get(month).containsKey(date)) {
-            return false;
-        }
-        return true;
+        return this.appointments.get(year).get(month).get(date).size() != 0;
     }
 
     public void removeAppointment(Appointment ap) {
-        if (this.appointments.containsKey(ap.getDate().getYear()) &&
-                this.appointments.get(ap.getDate().getYear()).containsKey(ap.getDate().getMonth()) &&
-                this.appointments.get(ap.getDate().getYear()).get(ap.getDate().getMonth()).containsKey(ap.getDate().getDate())) {
-            PriorityQueue<Appointment> t = this.appointments.get(ap.getDate().getYear()).get(ap.getDate().getMonth()).get(ap.getDate().getDate());
-            if (t.contains(ap)) t.remove(ap);
+        if (ap.getRepeated() == Appointment.REPEATED_NEVER) {
+            if (this.appointments.containsKey(ap.getDate().getYear()) &&
+                    this.appointments.get(ap.getDate().getYear()).containsKey(ap.getDate().getMonth()) &&
+                    this.appointments.get(ap.getDate().getYear()).get(ap.getDate().getMonth()).containsKey(ap.getDate().getDate())) {
+                PriorityQueue<Appointment> t = this.appointments.get(ap.getDate().getYear()).get(ap.getDate().getMonth()).get(ap.getDate().getDate());
+                if (t.contains(ap)) t.remove(ap);
+            }
+        } else {
+            this.repeatedAppointments.remove(ap);
         }
+
     }
 
     public static String getMonthName(int m) {

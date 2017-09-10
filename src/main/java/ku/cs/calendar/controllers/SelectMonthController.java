@@ -22,13 +22,10 @@ public class SelectMonthController {
         mainCtrl.setShownMonth(m);
         mainCtrl.getMainPanel().getChildren().remove(mainCtrl.getSelectMonthPane());
         mainCtrl.getMainPanel().getChildren().add(mainCtrl.getSelectDatePane());
-        mainCtrl.getSelectDateCtrl().setDates();
+        mainCtrl.setDatesInMonth();
         mainCtrl.getMainBtn().setText(Calendar.getMonthName(mainCtrl.getShownMonth()) + ", " + mainCtrl.getShownYear());
 
-        mainCtrl.getDetailPanel().getChildren().remove(mainCtrl.getApDetailPane());
-        mainCtrl.getDetailPanel().getChildren().remove(mainCtrl.getAddPanel());
-        mainCtrl.getDetailPanel().getChildren().remove(mainCtrl.getNewBtn());
-        mainCtrl.getDetailPanel().getChildren().add(mainCtrl.getNewBtn());
+        mainCtrl.clearDetailPane();
         mainCtrl.showAppointments();
     }
 }

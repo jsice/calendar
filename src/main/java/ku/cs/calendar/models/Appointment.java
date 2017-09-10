@@ -5,19 +5,27 @@ package ku.cs.calendar.models;
  */
 public class Appointment implements Comparable<Appointment> {
 
+    public static int REPEATED_NEVER = 0;
+    public static int REPEATED_DAILY = 1;
+    public static int REPEATED_WEEKLY = 2;
+    public static int REPEATED_MONTHLY = 3;
+
+
     private int id = -1;
     private Date date;
     private int hr;
     private int min;
     private String title;
     private String description;
+    private int repeated;
 
-    public Appointment(Date date, int hr, int min) {
+    public Appointment(Date date, int hr, int min, int reapeated) {
         this.date = date;
         this.title = "Untitled Appointment";
         this.description = "No description.";
         this.hr = hr;
         this.min = min;
+        this.repeated = reapeated;
     }
 
     public Date getDate() {
@@ -71,5 +79,17 @@ public class Appointment implements Comparable<Appointment> {
     public void setId(int id) {
         if (this.id == -1)
             this.id = id;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getRepeated() {
+        return repeated;
+    }
+
+    public void setRepeated(int repeated) {
+        this.repeated = repeated;
     }
 }

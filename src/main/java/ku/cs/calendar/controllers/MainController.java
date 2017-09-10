@@ -28,11 +28,12 @@ import java.util.TreeSet;
 
 public class MainController {
 
-    private FlowPane addPanel;
     private SelectMonthController selectMonthCtrl;
     private SelectDateController selectDateCtrl;
     private AppointmentDetailController apDetailCtrl;
     private AppointmentEditController apEditCtrl;
+    private AppointmentAddController apAddCtrl;
+    private AppointmentShowController apShowCtrl;
     private DatabaseManager dbManager;
     private int selectedYear;
     private int selectedMonth;
@@ -40,11 +41,9 @@ public class MainController {
     private int shownYear;
     private int shownMonth;
     private Calendar calendar;
-    private FlowPane selectDatePane;
-    private GridPane selectMonthPane, apDetailPane, apEditPane;
-    private ArrayList<Label> appointmentLabels;
-    @FXML
-    private Button newBtn;
+    private FlowPane selectDatePane, apShowPane;
+    private GridPane selectMonthPane, apDetailPane, apEditPane, apAddPane;
+
     @FXML
     private Label selectedDateLabel;
     @FXML
@@ -57,16 +56,16 @@ public class MainController {
     private Button increaseBtn;
     @FXML
     private Button decreaseBtn;
-    @FXML
-    private ScrollPane detailArea;
 
     public void init() throws IOException {
         this.calendar = new Calendar();
-        this.dbManager = new DatabaseManager();
+        this.dbManager = new DatabaseManager("jdbc:sqlite:test_calendar_appointments.db");
         FXMLLoader selectMonthPaneLoader = new FXMLLoader(getClass().getResource("/select_month.fxml"));
         FXMLLoader selectDatePaneLoader = new FXMLLoader(getClass().getResource("/select_date.fxml"));
         FXMLLoader apDetailPaneLoader = new FXMLLoader(getClass().getResource("/ap_detail.fxml"));
         FXMLLoader apEditPaneLoader = new FXMLLoader(getClass().getResource("/ap_edit.fxml"));
+        FXMLLoader apAddPaneLoader = new FXMLLoader(getClass().getResource("/ap_add.fxml"));
+        FXMLLoader apShowPaneLoader = new FXMLLoader(getClass().getResource("/ap_show.fxml"));
         this.selectMonthPane = selectMonthPaneLoader.load();
         this.selectDatePane = selectDatePaneLoader.load();
         this.selectMonthCtrl = selectMonthPaneLoader.getController();
@@ -74,8 +73,6 @@ public class MainController {
         this.selectDateCtrl = selectDatePaneLoader.getController();
         this.selectDateCtrl.setMainCtrl(this);
         this.mainPanel.getChildren().add(this.selectDatePane);
-        this.addPanel = initNewAppointmentPanel();
-        this.appointmentLabels = new ArrayList<Label>();
 
         this.apDetailPane = apDetailPaneLoader.load();
         this.apDetailCtrl = apDetailPaneLoader.getController();
@@ -84,66 +81,28 @@ public class MainController {
         this.apEditPane = apEditPaneLoader.load();
         this.apEditCtrl = apEditPaneLoader.getController();
         this.apEditCtrl.setMainCtrl(this);
+
+        this.apAddPane = apAddPaneLoader.load();
+        this.apAddCtrl = apAddPaneLoader.getController();
+        this.apAddCtrl.setMainCtrl(this);
+
+        this.apShowPane = apShowPaneLoader.load();
+        this.apShowCtrl = apShowPaneLoader.getController();
+        this.apShowCtrl.setMainCtrl(this);
+
+        this.loadAppointments();
+
+        this.setToday();
     }
 
-    private FlowPane initNewAppointmentPanel() {
-        FlowPane fp = new FlowPane();
-        fp.setPrefSize(348, 404);
-        Label title = new Label("Title: ");
-        title.setPrefWidth(348);
-        final TextField titleField = new TextField();
-        titleField.setPrefWidth(348);
-        Label hr = new Label("Hr: ");
-        hr.setPrefWidth(348);
-        final TextField hrField = new TextField();
-        hrField.setPrefWidth(348);
-        Label min = new Label("Min: ");
-        min.setPrefWidth(348);
-        final TextField minField = new TextField();
-        minField.setPrefWidth(348);
-        Button ok = new Button("OK");
-        ok.setPrefWidth(174);
-        ok.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                Appointment ap = new Appointment(new Date(selectedDate, selectedMonth , selectedYear), Integer.parseInt(hrField.getText()), Integer.parseInt(minField.getText()));
-                if (!titleField.getText().equals("")) ap.setTitle(titleField.getText());
-                calendar.addAppointment(ap);
-                dbManager.insertAppointment(ap);
-                titleField.setText("");
-                hrField.setText("");
-                minField.setText("");
-
-                detailPanel.getChildren().remove(addPanel);
-                detailPanel.getChildren().add(newBtn);
-                showAppointments();
-            }
-        });
-
-        Button cancel = new Button("cancel");
-        cancel.setPrefWidth(174);
-        cancel.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                titleField.setText("");
-                hrField.setText("");
-                minField.setText("");
-                detailPanel.getChildren().remove(addPanel);
-                detailPanel.getChildren().add(newBtn);
-                showAppointments();
-            }
-        });
-
-        fp.getChildren().add(title);
-        fp.getChildren().add(titleField);
-        fp.getChildren().add(hr);
-        fp.getChildren().add(hrField);
-        fp.getChildren().add(min);
-        fp.getChildren().add(minField);
-        fp.getChildren().add(cancel);
-        fp.getChildren().add(ok);
-        return fp;
+    private void loadAppointments() {
+        ArrayList<Appointment> appointments = this.dbManager.getAllAppointments();
+        for (Appointment ap: appointments) {
+            this.calendar.addAppointment(ap);
+        }
     }
 
-    public void setToday() {
+    private void setToday() {
         java.util.Calendar today = new GregorianCalendar();
         selectedYear = today.get(java.util.Calendar.YEAR) + 543;
         selectedMonth = today.get(java.util.Calendar.MONTH) + 1;
@@ -153,45 +112,40 @@ public class MainController {
         mainBtn.setText(Calendar.getMonthName(selectedMonth) + ", " + selectedYear);
         selectedDateLabel.setText(Calendar.getMonthName(selectedMonth) + " " + selectedDate + ", " + selectedYear);
         this.selectDateCtrl.setDates();
-        ArrayList<Appointment> aps = dbManager.getAppointmentByDate(selectedDate, selectedMonth, selectedYear);
-        for (Appointment ap: aps) {
-            calendar.addAppointment(ap);
-        }
-        showAppointments();
+        this.showAppointments();
+    }
+
+    protected void clearDetailPane() {
+        this.detailPanel.getChildren().remove(this.apAddPane);
+        this.detailPanel.getChildren().remove(this.apDetailPane);
+        this.detailPanel.getChildren().remove(this.apEditPane);
+        this.detailPanel.getChildren().remove(this.apShowPane);
     }
 
     protected void showAppointments() {
-        hideAppointments();
-        PriorityQueue<Appointment> appointments = calendar.getAppointments(selectedDate, selectedMonth, selectedYear);
-
-        for (Appointment ap: appointments) {
-            final Appointment appointment = ap;
-            String title = ap.getTitle();
-            if (title.length() > 30) title = title.substring(0, 26)+"...";
-            Label l = new Label(String.format("%02d:%02d  %s",ap.getHr(),ap.getMin(),title));
-            l.setPrefWidth(324);
-            l.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {
-                    hideAppointments();
-                    detailPanel.getChildren().remove(newBtn);
-                    apDetailCtrl.setAppointment(appointment);
-                    apDetailCtrl.showDetail();
-                    detailPanel.getChildren().add(apDetailPane);
-                }
-            });
-            appointmentLabels.add(l);
-            detailPanel.getChildren().add(l);
-        }
-
+        this.detailPanel.getChildren().add(this.apShowPane);
+        this.apShowCtrl.showAppointments();
     }
 
-    private void hideAppointments() {
-        if (appointmentLabels.size() > 0)
-            for (int i = appointmentLabels.size() - 1; i >= 0; i--) {
-                detailPanel.getChildren().remove(appointmentLabels.get(i));
-                appointmentLabels.remove(appointmentLabels.get(i));
+    protected void seeAppointmentDetail(Appointment appointment) {
+        this.detailPanel.getChildren().add(this.apDetailPane);
+        this.apDetailCtrl.setAppointment(appointment);
+        this.apDetailCtrl.showDetail();
+    }
 
-            }
+    protected void editAppointment(Appointment appointment) {
+        this.detailPanel.getChildren().add(this.apEditPane);
+        this.apEditCtrl.setAppointment(appointment);
+        this.apEditCtrl.setup();
+    }
+
+    protected void addAppointment() {
+        this.detailPanel.getChildren().add(this.apAddPane);
+        this.apAddCtrl.setup();
+    }
+
+    protected void setDatesInMonth() {
+        this.selectDateCtrl.setDates();
     }
 
     @FXML
@@ -239,13 +193,6 @@ public class MainController {
         }
     }
 
-    @FXML
-    private void newAppointment(ActionEvent e) {
-        hideAppointments();
-        detailPanel.getChildren().remove(newBtn);
-        detailPanel.getChildren().add(addPanel);
-    }
-
     protected FlowPane getSelectDatePane() {
         return selectDatePane;
     }
@@ -256,14 +203,6 @@ public class MainController {
 
     protected Button getMainBtn() {
         return mainBtn;
-    }
-
-    protected Button getDecreaseBtn() {
-        return decreaseBtn;
-    }
-
-    protected Button getIncreaseBtn() {
-        return increaseBtn;
     }
 
     protected FlowPane getMainPanel() {
@@ -296,28 +235,8 @@ public class MainController {
         return selectedYear;
     }
 
-    protected SelectDateController getSelectDateCtrl() {
-        return selectDateCtrl;
-    }
-
-    protected SelectMonthController getSelectMonthCtrl() {
-        return selectMonthCtrl;
-    }
-
     protected GridPane getApDetailPane() {
         return apDetailPane;
-    }
-
-    protected AppointmentDetailController getApDetailCtrl() {
-        return apDetailCtrl;
-    }
-
-    protected FlowPane getAddPanel() {
-        return addPanel;
-    }
-
-    protected Button getNewBtn() {
-        return newBtn;
     }
 
     protected int getShownMonth() {
@@ -336,10 +255,6 @@ public class MainController {
         this.shownMonth = shownMonth;
     }
 
-    protected AppointmentEditController getApEditCtrl() {
-        return apEditCtrl;
-    }
-
     protected GridPane getApEditPane() {
         return apEditPane;
     }
@@ -350,5 +265,13 @@ public class MainController {
 
     public DatabaseManager getDbManager() {
         return dbManager;
+    }
+
+    public GridPane getApAddPane() {
+        return apAddPane;
+    }
+
+    public FlowPane getApShowPane() {
+        return apShowPane;
     }
 }

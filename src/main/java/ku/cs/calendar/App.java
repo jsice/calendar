@@ -19,7 +19,6 @@ public class App extends Application {
         Parent root = loader.load();
         MainController mainController = loader.getController();
         mainController.init();
-        mainController.setToday();
         primaryStage.setTitle("Calendar");
         primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
