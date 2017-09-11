@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ku.cs.calendar.models.Appointment;
+import ku.cs.calendar.models.Calendar;
 import ku.cs.calendar.models.Date;
 
 public class AppointmentEditController {
@@ -22,24 +23,26 @@ public class AppointmentEditController {
 
     @FXML
     protected void save(ActionEvent e){
-        appointment.setTitle(title.getText());
-        appointment.setDescription(description.getText());
-        appointment.setHr(Integer.parseInt(hr.getText()));
-        appointment.setMin(Integer.parseInt(min.getText()));
-        appointment.setDate(new Date(Integer.parseInt(date.getText()), Integer.parseInt(month.getText()), Integer.parseInt(year.getText())));
-        int repeated = appointment.getRepeated();
-        int newRepeated = repeatedComboBox.getSelectionModel().getSelectedIndex();
-        if ((repeated == Appointment.REPEATED_NEVER && newRepeated != Appointment.REPEATED_NEVER) ||
-                (newRepeated == Appointment.REPEATED_NEVER && repeated != Appointment.REPEATED_NEVER) ) {
-            this.mainCtrl.getCalendar().removeAppointment(appointment);
-            appointment.setRepeated(newRepeated);
-            this.mainCtrl.getCalendar().addAppointment(appointment);
-        } else {
-            appointment.setRepeated(newRepeated);
-        }
-        this.mainCtrl.getDbManager().updateAppointment(appointment);
+        if (this.validateInput()) {
+            appointment.setTitle(title.getText());
+            appointment.setDescription(description.getText());
+            appointment.setHr(Integer.parseInt(hr.getText()));
+            appointment.setMin(Integer.parseInt(min.getText()));
+            appointment.setDate(new Date(Integer.parseInt(date.getText()), Integer.parseInt(month.getText()), Integer.parseInt(year.getText())));
+            int repeated = appointment.getRepeated();
+            int newRepeated = repeatedComboBox.getSelectionModel().getSelectedIndex();
+            if ((repeated == Appointment.REPEATED_NEVER && newRepeated != Appointment.REPEATED_NEVER) ||
+                    (newRepeated == Appointment.REPEATED_NEVER && repeated != Appointment.REPEATED_NEVER) ) {
+                this.mainCtrl.getCalendar().removeAppointment(appointment);
+                appointment.setRepeated(newRepeated);
+                this.mainCtrl.getCalendar().addAppointment(appointment);
+            } else {
+                appointment.setRepeated(newRepeated);
+            }
+            this.mainCtrl.getDbManager().updateAppointment(appointment);
 
-        back();
+            back();
+        }
     }
 
     @FXML
@@ -73,11 +76,89 @@ public class AppointmentEditController {
         this.repeatedComboBox.getSelectionModel().select(appointment.getRepeated());
         dateLabel.setText("Start Date:");
         if (appointment.getRepeated() == Appointment.REPEATED_NEVER) dateLabel.setText("Date:");
+        date.setStyle("-fx-control-inner-background: White");
+        month.setStyle("-fx-control-inner-background: White");
+        year.setStyle("-fx-control-inner-background: White");
+        hr.setStyle("-fx-control-inner-background: White");
+        min.setStyle("-fx-control-inner-background: White");
     }
 
     private void back() {
         this.mainCtrl.getDetailPanel().getChildren().remove(this.mainCtrl.getApEditPane());
         this.mainCtrl.seeAppointmentDetail(this.appointment);
+    }
+
+    private boolean validateInput() {
+        boolean valid = true;
+        int date = 0;
+        int month = 0;
+        int year = 0;
+        int h = -1;
+        int m = -1;
+        try {
+            date = Integer.parseInt(this.date.getText());
+            this.date.setStyle("-fx-control-inner-background: White");
+        } catch (NumberFormatException e) {
+            this.date.setStyle("-fx-control-inner-background: Red");
+            valid = false;
+        }
+        try {
+            month = Integer.parseInt(this.month.getText());
+            this.month.setStyle("-fx-control-inner-background: White");
+        } catch (NumberFormatException e) {
+            this.month.setStyle("-fx-control-inner-background: Red");
+            valid = false;
+        }
+        try {
+            year = Integer.parseInt(this.year.getText());
+            this.year.setStyle("-fx-control-inner-background: White");
+        } catch (NumberFormatException e) {
+            this.year.setStyle("-fx-control-inner-background: Red");
+            valid = false;
+        }
+
+        if (date != 0 && month != 0 && year != 0) {
+            if (!Calendar.isValidDate(date, month, year)) {
+                this.date.setStyle("-fx-control-inner-background: Red");
+                this.month.setStyle("-fx-control-inner-background: Red");
+                this.year.setStyle("-fx-control-inner-background: Red");
+                valid = false;
+            } else {
+                this.date.setStyle("-fx-control-inner-background: White");
+                this.month.setStyle("-fx-control-inner-background: White");
+                this.year.setStyle("-fx-control-inner-background: White");
+            }
+        }
+
+        try {
+            h = Integer.parseInt(this.hr.getText());
+            this.hr.setStyle("-fx-control-inner-background: White");
+        } catch (NumberFormatException e) {
+            this.hr.setStyle("-fx-control-inner-background: Red");
+            valid = false;
+        }
+
+        try {
+            m = Integer.parseInt(this.min.getText());
+            this.min.setStyle("-fx-control-inner-background: White");
+        } catch (NumberFormatException e) {
+            this.min.setStyle("-fx-control-inner-background: Red");
+            valid = false;
+        }
+
+        if (m != -1 && h != -1) {
+            if (!(m >= 0 && m < 60 &&
+                    h >= 0 && h < 24)) {
+                this.hr.setStyle("-fx-control-inner-background: Red");
+                this.min.setStyle("-fx-control-inner-background: Red");
+                valid = false;
+            } else {
+                this.hr.setStyle("-fx-control-inner-background: White");
+                this.min.setStyle("-fx-control-inner-background: White");
+            }
+        }
+
+        return valid;
     }
 
     public void setMainCtrl(MainController mainCtrl) {

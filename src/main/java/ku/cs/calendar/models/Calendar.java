@@ -138,7 +138,6 @@ public class Calendar {
         } else {
             this.repeatedAppointments.remove(ap);
         }
-
     }
 
     public static String getMonthName(int m) {
@@ -160,6 +159,16 @@ public class Calendar {
             }
         }
         return monthDay.get(m);
+    }
+
+    public static boolean isValidDate(int d, int m, int y) {
+        y -= 543;
+        if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
+            if (m == 2 && d == 29) return true;
+        }
+        if (m > 0 && m < 13)
+            if (d > 0 && d <= monthDay.get(m)) return true;
+        return false;
     }
 
 }

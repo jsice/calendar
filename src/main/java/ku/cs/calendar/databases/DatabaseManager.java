@@ -1,4 +1,4 @@
-package ku.cs.calendar.controllers;
+package ku.cs.calendar.databases;
 
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Date;
@@ -12,8 +12,9 @@ public class DatabaseManager {
     private Connection conn;
 
     public DatabaseManager(String url) {
-        this.url = url;
-        this.init();
+        this.url = "jdbc:sqlite:" + url;
+        this.createDatabase();
+
     }
 
     private void connect() throws SQLException, ClassNotFoundException {
@@ -27,7 +28,7 @@ public class DatabaseManager {
         }
     }
 
-    private void init() {
+    private void createDatabase() {
         try {
             connect();
             DatabaseMetaData md = conn.getMetaData();
@@ -50,7 +51,7 @@ public class DatabaseManager {
 
     }
 
-    protected ArrayList<Appointment> getAppointmentByDate(int date, int month, int year) {
+    public ArrayList<Appointment> getAppointmentByDate(int date, int month, int year) {
         String formattedDate = String.format("%02d%02d%04d", date, month, year);
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
         try {
@@ -82,7 +83,7 @@ public class DatabaseManager {
         return appointments;
     }
 
-    protected ArrayList<Appointment> getAllAppointments() {
+    public ArrayList<Appointment> getAllAppointments() {
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
         try {
             connect();
@@ -113,7 +114,7 @@ public class DatabaseManager {
         return appointments;
     }
 
-    protected Appointment insertAppointment(Appointment ap) {
+    public Appointment insertAppointment(Appointment ap) {
         try {
             connect();
             String title = ap.getTitle();
@@ -138,7 +139,7 @@ public class DatabaseManager {
         return ap;
     }
 
-    protected void updateAppointment(Appointment ap) {
+    public void updateAppointment(Appointment ap) {
         try {
             connect();
             int id = ap.getId();
@@ -158,7 +159,7 @@ public class DatabaseManager {
         }
     }
 
-    protected void deleteAppointment(Appointment ap) {
+    public void deleteAppointment(Appointment ap) {
         try {
             connect();
             int id = ap.getId();

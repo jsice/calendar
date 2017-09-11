@@ -1,25 +1,19 @@
 package ku.cs.calendar.controllers;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import ku.cs.calendar.databases.DatabaseManager;
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Calendar;
-import ku.cs.calendar.models.Date;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.PriorityQueue;
-import java.util.TreeSet;
 
 /**
  * Wiwadh Chinanuphandh
@@ -59,7 +53,7 @@ public class MainController {
 
     public void init() throws IOException {
         this.calendar = new Calendar();
-        this.dbManager = new DatabaseManager("jdbc:sqlite:test_calendar_appointments.db");
+        this.dbManager = new DatabaseManager("test_calendar_appointments.db");
         FXMLLoader selectMonthPaneLoader = new FXMLLoader(getClass().getResource("/select_month.fxml"));
         FXMLLoader selectDatePaneLoader = new FXMLLoader(getClass().getResource("/select_date.fxml"));
         FXMLLoader apDetailPaneLoader = new FXMLLoader(getClass().getResource("/ap_detail.fxml"));

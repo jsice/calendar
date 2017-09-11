@@ -27,16 +27,17 @@ public class AppointmentShowController {
     protected void showAppointments() {
         hideAppointments();
         PriorityQueue<Appointment> appointments = mainCtrl.getCalendar().getAppointments(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear());
-        for (Appointment ap: appointments) {
-            final Appointment appointment = ap;
+        while (!appointments.isEmpty()) {
+            final Appointment ap = appointments.poll();
             String title = ap.getTitle();
             if (title.length() > 30) title = title.substring(0, 26)+"...";
             Label l = new Label(String.format("%02d:%02d  %s",ap.getHr(),ap.getMin(),title));
             l.setPrefWidth(326);
+            l.setPrefHeight(25);
             l.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
                     mainCtrl.getDetailPanel().getChildren().remove(mainCtrl.getApShowPane());
-                    mainCtrl.seeAppointmentDetail(appointment);
+                    mainCtrl.seeAppointmentDetail(ap);
                 }
             });
             this.appointmentLabels.add(l);

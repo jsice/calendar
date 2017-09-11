@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/calendar_jar</output-path>
     <root id="archive" name="calendar.jar">
       <element id="module-output" name="calendar" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.20.0/sqlite-jdbc-3.20.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
