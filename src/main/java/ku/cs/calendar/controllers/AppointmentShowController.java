@@ -9,7 +9,10 @@ import ku.cs.calendar.models.Appointment;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-
+/**
+ * Wiwadh Chinanuphandh
+ * 5810400051
+ */
 public class AppointmentShowController {
 
     private MainController mainCtrl;

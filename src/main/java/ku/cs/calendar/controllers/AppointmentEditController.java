@@ -6,7 +6,10 @@ import javafx.scene.control.*;
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Calendar;
 import ku.cs.calendar.models.Date;
-
+/**
+ * Wiwadh Chinanuphandh
+ * 5810400051
+ */
 public class AppointmentEditController {
 
     private MainController mainCtrl;

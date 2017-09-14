@@ -5,7 +5,10 @@ import ku.cs.calendar.models.Date;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+/**
+ * Wiwadh Chinanuphandh
+ * 5810400051
+ */
 public class DatabaseManager {
 
     private String url;

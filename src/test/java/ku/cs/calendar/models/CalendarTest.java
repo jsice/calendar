@@ -31,7 +31,7 @@ public class CalendarTest {
         ap = new Appointment(new Date(4, 8, 2560 ), 1, 1, Appointment.REPEATED_WEEKLY);
         c.addAppointment(ap);
         Assertions.assertEquals(3, c.getAppointments(31, 8, 2560).size());
-        Assertions.assertEquals(2, c.getAppointments(4, 8, 2560).size());
+        Assertions.assertEquals(1, c.getAppointments(4, 8, 2560).size());
         Assertions.assertEquals(3, c.getAppointments(31, 8, 2561).size());
     }
 

@@ -26,5 +26,10 @@
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.20.0</version>
     </dependency>
+      <dependency>
+          <groupId>org.junit.platform</groupId>
+          <artifactId>junit-platform-commons</artifactId>
+          <version>1.0.0</version>
+      </dependency>
   </dependencies>
 </project>
