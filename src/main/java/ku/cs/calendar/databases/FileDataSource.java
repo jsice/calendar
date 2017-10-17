@@ -81,7 +81,11 @@ public class FileDataSource implements DataSource {
         if (in != null) {
             try {
                 for (Appointment appointment: aps) {
-                    in.writeObject(appointment);
+                    if (appointment.getId() == ap.getId()) {
+                        in.writeObject(ap);
+                    } else {
+                        in.writeObject(appointment);
+                    }
                 }
                 in.close();
             } catch (IOException e) {
