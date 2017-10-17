@@ -5,43 +5,30 @@ import ku.cs.calendar.models.Date;
 
 import java.sql.*;
 import java.util.ArrayList;
-/**
- * Wiwadh Chinanuphandh
- * 5810400051
- */
-public class DatabaseManager {
 
-    private String url;
-    private Connection conn;
+public abstract class DatabaseDataSource implements DataSource {
 
-    public DatabaseManager(String url) {
-        this.url = "jdbc:sqlite:" + url;
-        this.createDatabase();
+    Connection conn;
+    String url;
+    abstract void connect() throws SQLException, ClassNotFoundException ;
 
-    }
-
-    private void connect() throws SQLException, ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
-        conn = DriverManager.getConnection(this.url);
-    }
-
-    private void close() throws SQLException {
+    void close() throws SQLException {
         if (conn != null) {
             conn.close();
         }
     }
 
-    private void createDatabase() {
+    void createDatabase() {
         try {
             connect();
             DatabaseMetaData md = conn.getMetaData();
-            ResultSet rs = md.getTables(null, null, "Appointments", null);
+            ResultSet rs = md.getTables(null, null, "appointments", null);
             boolean appointmentsTableExist = false;
             while (rs.next()) {
-                if ("Appointments".equals(rs.getString(3))) appointmentsTableExist = true;
+                if ("appointments".equals(rs.getString(3).toLowerCase())) appointmentsTableExist = true;
             }
             if (!appointmentsTableExist) {
-                String query = "CREATE TABLE \"Appointments\" ( `id` INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, `title` TEXT DEFAULT \"Untitled Appointment\", `description` TEXT DEFAULT \"No description.\", `date` TEXT, `time` TEXT, `REPEATED` INTEGER )";
+                String query = "CREATE TABLE appointments ( `id` INTEGER PRIMARY KEY AUTO_INCREMENT, `title` TEXT, `description` TEXT, `date` TEXT, `time` TEXT, `REPEATED` INTEGER )";
                 Statement statement = conn.createStatement();
                 statement.execute(query);
             }
@@ -51,39 +38,6 @@ public class DatabaseManager {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-    }
-
-    public ArrayList<Appointment> getAppointmentByDate(int date, int month, int year) {
-        String formattedDate = String.format("%02d%02d%04d", date, month, year);
-        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
-        try {
-            connect();
-            String query = String.format("SELECT * FROM Appointments WHERE DATE = \"%s\"", formattedDate);
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String title = resultSet.getString(2);
-                String description = resultSet.getString(3);
-                String d = resultSet.getString(4);
-                String time = resultSet.getString(5);
-                int repeated = resultSet.getInt(6);
-                Appointment ap = new Appointment(new Date(Integer.parseInt(d.substring(0,2)),
-                        Integer.parseInt(d.substring(2,4)), Integer.parseInt(d.substring(4))),
-                        Integer.parseInt(time.substring(0,2)), Integer.parseInt(time.substring(2)), repeated);
-                ap.setTitle(title);
-                ap.setDescription(description);
-                ap.setId(id);
-                appointments.add(ap);
-            }
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return appointments;
     }
 
     public ArrayList<Appointment> getAllAppointments() {
@@ -130,6 +84,7 @@ public class DatabaseManager {
             statement.execute(query);
             query = "SELECT max(ID) FROM Appointments";
             ResultSet resultSet = statement.executeQuery(query);
+            resultSet.next();
             int id = resultSet.getInt(1);
             ap.setId(id);
             close();

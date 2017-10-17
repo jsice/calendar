@@ -1,9 +1,12 @@
 package ku.cs.calendar.models;
+
+import java.io.Serializable;
+
 /**
  * Wiwadh Chinanuphandh
  * 5810400051
  */
-public class Appointment implements Comparable<Appointment> {
+public class Appointment implements Comparable<Appointment>, Serializable {
 
     public static int REPEATED_NEVER = 0;
     public static int REPEATED_DAILY = 1;

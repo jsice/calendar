@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.MainController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="620.0" minWidth="10.0" prefWidth="600.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.0" minWidth="10.0" prefWidth="400.0" />
@@ -42,12 +42,12 @@
                   </FlowPane>
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="decreaseBtn" mnemonicParsing="false" onAction="#handleDecBtn" text="&lt;" />
+                        <Button mnemonicParsing="false" onAction="#handleDecBtn" text="&lt;" />
                      </children>
                   </FlowPane>
                   <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="increaseBtn" mnemonicParsing="false" onAction="#handleIncBtn" text="&gt;" />
+                        <Button mnemonicParsing="false" onAction="#handleIncBtn" text="&gt;" />
                      </children>
                   </FlowPane>
                </children>

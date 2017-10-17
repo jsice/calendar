@@ -7,7 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import ku.cs.calendar.databases.DatabaseManager;
+import ku.cs.calendar.databases.DataSource;
+import ku.cs.calendar.databases.FileDataSource;
+import ku.cs.calendar.databases.MySQLDataSource;
+import ku.cs.calendar.databases.SQLiteDataSource;
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Calendar;
 
@@ -28,7 +31,7 @@ public class MainController {
     private AppointmentEditController apEditCtrl;
     private AppointmentAddController apAddCtrl;
     private AppointmentShowController apShowCtrl;
-    private DatabaseManager dbManager;
+    private DataSource dataSource;
     private int selectedYear;
     private int selectedMonth;
     private int selectedDate;
@@ -46,14 +49,12 @@ public class MainController {
     private FlowPane mainPanel;
     @FXML
     private Button mainBtn;
-    @FXML
-    private Button increaseBtn;
-    @FXML
-    private Button decreaseBtn;
 
     public void init() throws IOException {
         this.calendar = new Calendar();
-        this.dbManager = new DatabaseManager("test_calendar_appointments.db");
+        this.dataSource = new FileDataSource("test_calendar_appointments.txt");
+//        this.dataSource = new SQLiteDataSource("test_calendar_appointments.db");
+//        this.dataSource = new MySQLDataSource("10.2.43.33", "3306", "test_calendar_appointment");
         FXMLLoader selectMonthPaneLoader = new FXMLLoader(getClass().getResource("/select_month.fxml"));
         FXMLLoader selectDatePaneLoader = new FXMLLoader(getClass().getResource("/select_date.fxml"));
         FXMLLoader apDetailPaneLoader = new FXMLLoader(getClass().getResource("/ap_detail.fxml"));
@@ -90,7 +91,7 @@ public class MainController {
     }
 
     private void loadAppointments() {
-        ArrayList<Appointment> appointments = this.dbManager.getAllAppointments();
+        ArrayList<Appointment> appointments = this.dataSource.getAllAppointments();
         for (Appointment ap: appointments) {
             this.calendar.addAppointment(ap);
         }
@@ -257,8 +258,8 @@ public class MainController {
         return calendar;
     }
 
-    public DatabaseManager getDbManager() {
-        return dbManager;
+    public DataSource getDataSource() {
+        return dataSource;
     }
 
     public GridPane getApAddPane() {

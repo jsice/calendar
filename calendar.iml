@@ -20,5 +20,6 @@
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.20.0" level="project" />
     <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apiguardian:apiguardian-api:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.7-dmr" level="project" />
   </component>
 </module>

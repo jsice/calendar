@@ -1,13 +1,12 @@
 package ku.cs.calendar.controllers;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Calendar;
@@ -26,15 +25,41 @@ public class SelectDateController {
     private Label[] dateLabels;
     private Label selectedLabel;
     private Color selectedColor = Color.ALICEBLUE;
+    @FXML
+    private GridPane calendarGrid;
 
     @FXML
-    private Label dateLabel1, dateLabel2, dateLabel3, dateLabel4, dateLabel5, dateLabel6, dateLabel7, dateLabel8, dateLabel9, dateLabel10, dateLabel11, dateLabel12, dateLabel13, dateLabel14, dateLabel15, dateLabel16, dateLabel17, dateLabel18, dateLabel19, dateLabel20, dateLabel21;
-    @FXML
-    private Label dateLabel22, dateLabel23, dateLabel24, dateLabel25, dateLabel26, dateLabel27, dateLabel28, dateLabel29, dateLabel30, dateLabel31, dateLabel32, dateLabel33, dateLabel34, dateLabel35, dateLabel36, dateLabel37, dateLabel38, dateLabel39, dateLabel40, dateLabel41, dateLabel42;
+    private void initialize() {
+        this.dateLabels = new Label[42];
+        for (int i = 0; i < 42; i++) {
+            this.dateLabels[i] = new Label();
+            this.dateLabels[i].setAlignment(Pos.CENTER);
+            this.dateLabels[i].setPrefWidth(78);
+            this.dateLabels[i].setPrefHeight(68);
+            this.dateLabels[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    String text = ((Label)event.getSource()).getText();
+                    if (text.equals("")) return;
+                    if (selectedLabel != null) {
+                        selectedLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                    }
+                    selectedLabel = (Label)event.getSource();
+                    selectedLabel.setBackground(new Background(new BackgroundFill(selectedColor, CornerRadii.EMPTY, Insets.EMPTY)));
+                    int d = Integer.parseInt(text);
+                    mainCtrl.setSelectedDate(d);
+                    mainCtrl.setSelectedMonth(mainCtrl.getShownMonth());
+                    mainCtrl.setSelectedYear(mainCtrl.getShownYear());
+                    mainCtrl.getSelectedDateLabel().setText(Calendar.getMonthName(mainCtrl.getSelectedMonth()) + " " + mainCtrl.getSelectedDate() + ", " + mainCtrl.getSelectedYear());
+
+                    mainCtrl.clearDetailPane();
+                    mainCtrl.showAppointments();
+                }
+            });
+            this.calendarGrid.add(this.dateLabels[i], i%7, (i/7) + 1);
+        }
+    }
 
     protected void setMainCtrl(MainController mainCtrl) {
-        dateLabels = new Label[] {dateLabel1, dateLabel2, dateLabel3, dateLabel4, dateLabel5, dateLabel6, dateLabel7, dateLabel8, dateLabel9, dateLabel10, dateLabel11, dateLabel12, dateLabel13, dateLabel14, dateLabel15, dateLabel16, dateLabel17, dateLabel18, dateLabel19, dateLabel20, dateLabel21,
-                dateLabel22, dateLabel23, dateLabel24, dateLabel25, dateLabel26, dateLabel27, dateLabel28, dateLabel29, dateLabel30, dateLabel31, dateLabel32, dateLabel33, dateLabel34, dateLabel35, dateLabel36, dateLabel37, dateLabel38, dateLabel39, dateLabel40, dateLabel41, dateLabel42};
         this.mainCtrl = mainCtrl;
     }
 
@@ -44,7 +69,7 @@ public class SelectDateController {
         }
     }
 
-    protected void setDates() {
+    void setDates() {
         int m = mainCtrl.getShownMonth();
         int y = mainCtrl.getShownYear();
         java.util.Calendar d = new GregorianCalendar(y-543, m-1, 1);
@@ -60,6 +85,8 @@ public class SelectDateController {
             }
             if (i % 7 == 0) {
                 dateLabels[i].setTextFill(Color.RED);
+            } else {
+                dateLabels[i].setTextFill(Color.BLACK);
             }
         }
 
@@ -76,24 +103,5 @@ public class SelectDateController {
         }
     }
 
-    @FXML
-    protected void selectDate(MouseEvent e) {
-        String text = ((Label)e.getSource()).getText();
-        if (text.equals("")) return;
-        if (selectedLabel != null) {
-            this.selectedLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        }
-        this.selectedLabel = (Label)e.getSource();
-        this.selectedLabel.setBackground(new Background(new BackgroundFill(selectedColor, CornerRadii.EMPTY, Insets.EMPTY)));
-        int d = Integer.parseInt(text);
-        mainCtrl.setSelectedDate(d);
-        mainCtrl.setSelectedMonth(mainCtrl.getShownMonth());
-        mainCtrl.setSelectedYear(mainCtrl.getShownYear());
-        mainCtrl.getSelectedDateLabel().setText(Calendar.getMonthName(mainCtrl.getSelectedMonth()) + " " + mainCtrl.getSelectedDate() + ", " + mainCtrl.getSelectedYear());
-
-        mainCtrl.clearDetailPane();
-        mainCtrl.showAppointments();
-
-    }
 
 }

@@ -42,7 +42,7 @@ public class AppointmentEditController {
             } else {
                 appointment.setRepeated(newRepeated);
             }
-            this.mainCtrl.getDbManager().updateAppointment(appointment);
+            this.mainCtrl.getDataSource().updateAppointment(appointment);
 
             back();
         }
@@ -56,7 +56,7 @@ public class AppointmentEditController {
     @FXML
     protected void deleteThisAppointment(ActionEvent e){
         this.mainCtrl.getCalendar().removeAppointment(appointment);
-        this.mainCtrl.getDbManager().deleteAppointment(appointment);
+        this.mainCtrl.getDataSource().deleteAppointment(appointment);
         this.mainCtrl.getDetailPanel().getChildren().remove(this.mainCtrl.getApEditPane());
         this.mainCtrl.showAppointments();
     }

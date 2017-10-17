@@ -1,9 +1,12 @@
 package ku.cs.calendar.models;
+
+import java.io.Serializable;
+
 /**
  * Wiwadh Chinanuphandh
  * 5810400051
  */
-public class Date {
+public class Date implements Serializable {
 
     private int date;
     private int month;

@@ -1,14 +1,9 @@
 package ku.cs.calendar.controllers;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Calendar;
 import ku.cs.calendar.models.Date;
@@ -37,7 +32,7 @@ public class AppointmentAddController {
             Appointment ap = new Appointment(new Date(selectedDate, selectedMonth , selectedYear), Integer.parseInt(hrField.getText()), Integer.parseInt(minField.getText()), repeatedMode);
             if (!titleField.getText().equals("")) ap.setTitle(titleField.getText());
             if (!descriptionField.getText().equals("")) ap.setDescription(descriptionField.getText());
-            ap = this.mainCtrl.getDbManager().insertAppointment(ap);
+            ap = this.mainCtrl.getDataSource().insertAppointment(ap);
             this.mainCtrl.getCalendar().addAppointment(ap);
             back();
         }
