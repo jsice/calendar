@@ -34,6 +34,7 @@ public class AppointmentAddController {
             if (!descriptionField.getText().equals("")) ap.setDescription(descriptionField.getText());
             ap = this.mainCtrl.getDataSource().insertAppointment(ap);
             this.mainCtrl.getCalendar().addAppointment(ap);
+            this.mainCtrl.selectDate(selectedDate, selectedMonth, selectedYear);
             back();
         }
     }

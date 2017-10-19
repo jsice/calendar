@@ -20,28 +20,4 @@ public class SQLiteDataSource extends DatabaseDataSource {
         conn = DriverManager.getConnection(this.url);
     }
 
-//    void createDatabase() {
-//        try {
-//            connect();
-//            DatabaseMetaData md = conn.getMetaData();
-//            ResultSet rs = md.getTables(null, null, "Appointments", null);
-//            boolean appointmentsTableExist = false;
-//            while (rs.next()) {
-//                if ("Appointments".equals(rs.getString(3))) appointmentsTableExist = true;
-//            }
-//            if (!appointmentsTableExist) {
-//                String query = "CREATE TABLE \"Appointments\" ( `id` INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, `title` TEXT DEFAULT \"Untitled Appointment\", `description` TEXT DEFAULT \"No description.\", `date` TEXT, `time` TEXT, `REPEATED` INTEGER )";
-//                Statement statement = conn.createStatement();
-//                statement.execute(query);
-//            }
-//            close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
-
 }

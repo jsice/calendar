@@ -52,8 +52,8 @@ public class MainController {
 
     public void init() throws IOException {
         this.calendar = new Calendar();
-        this.dataSource = new FileDataSource("test_calendar_appointments.txt");
-//        this.dataSource = new SQLiteDataSource("test_calendar_appointments.db");
+//        this.dataSource = new FileDataSource("test_calendar_appointments.txt");
+        this.dataSource = new SQLiteDataSource("test_calendar_appointments.db");
 //        this.dataSource = new MySQLDataSource("10.2.43.33", "3306", "test_calendar_appointment");
         FXMLLoader selectMonthPaneLoader = new FXMLLoader(getClass().getResource("/select_month.fxml"));
         FXMLLoader selectDatePaneLoader = new FXMLLoader(getClass().getResource("/select_date.fxml"));
@@ -139,8 +139,16 @@ public class MainController {
         this.apAddCtrl.setup();
     }
 
+    void selectDate(int date, int month, int year) {
+        this.selectDateCtrl.selectDate(date, month, year);
+    }
+
     protected void setDatesInMonth() {
         this.selectDateCtrl.setDates();
+    }
+
+    private void setShownMonthYear() {
+        mainBtn.setText(Calendar.getMonthName(shownMonth) + ", " + shownYear);
     }
 
     @FXML
@@ -161,7 +169,7 @@ public class MainController {
                 shownMonth = 1;
                 shownYear++;
             }
-            mainBtn.setText(Calendar.getMonthName(shownMonth) + ", " + shownYear);
+            setShownMonthYear();
             this.selectDateCtrl.setDates();
 
         } else if (shownYear != 0) {
@@ -179,7 +187,7 @@ public class MainController {
                     shownMonth = 12;
                     shownYear--;
                 }
-                mainBtn.setText(Calendar.getMonthName(shownMonth) + ", " + shownYear);
+                setShownMonthYear();
                 this.selectDateCtrl.setDates();
             } else if (shownYear > 2) {
                 shownYear--;

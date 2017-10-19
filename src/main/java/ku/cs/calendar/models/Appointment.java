@@ -20,15 +20,15 @@ public class Appointment implements Comparable<Appointment>, Serializable {
     private int min;
     private String title;
     private String description;
-    private int repeated;
+    private AppointmentRepeatState state;
 
-    public Appointment(Date date, int hr, int min, int reapeated) {
+    public Appointment(Date date, int hr, int min, int repeated) {
         this.date = date;
         this.title = "Untitled Appointment";
         this.description = "No description.";
         this.hr = hr;
         this.min = min;
-        this.repeated = reapeated;
+        this.setRepeated(repeated);
     }
 
     public Date getDate() {
@@ -84,15 +84,25 @@ public class Appointment implements Comparable<Appointment>, Serializable {
             this.id = id;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getRepeated() {
-        return repeated;
+    public boolean isOnTheDate(int date, int month, int year) {
+        return this.state.isOnTheDate(this.date, date, month, year);
     }
 
     public void setRepeated(int repeated) {
-        this.repeated = repeated;
+        if (repeated == REPEATED_NEVER) this.state = new AppointmentNeverRepeatState();
+        if (repeated == REPEATED_DAILY) this.state = new AppointmentDailyRepeatState();
+        if (repeated == REPEATED_WEEKLY) this.state = new AppointmentWeeklyRepeatState();
+        if (repeated == REPEATED_MONTHLY) this.state = new AppointmentMonthlyRepeatState();
+    }
+
+    public int getRepeated() {
+        if (this.state instanceof AppointmentDailyRepeatState) return REPEATED_DAILY;
+        if (this.state instanceof AppointmentWeeklyRepeatState) return REPEATED_WEEKLY;
+        if (this.state instanceof AppointmentMonthlyRepeatState) return REPEATED_MONTHLY;
+        return REPEATED_NEVER;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -40,17 +40,8 @@ public class SelectDateController {
                 public void handle(MouseEvent event) {
                     String text = ((Label)event.getSource()).getText();
                     if (text.equals("")) return;
-                    if (selectedLabel != null) {
-                        selectedLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-                    }
-                    selectedLabel = (Label)event.getSource();
-                    selectedLabel.setBackground(new Background(new BackgroundFill(selectedColor, CornerRadii.EMPTY, Insets.EMPTY)));
                     int d = Integer.parseInt(text);
-                    mainCtrl.setSelectedDate(d);
-                    mainCtrl.setSelectedMonth(mainCtrl.getShownMonth());
-                    mainCtrl.setSelectedYear(mainCtrl.getShownYear());
-                    mainCtrl.getSelectedDateLabel().setText(Calendar.getMonthName(mainCtrl.getSelectedMonth()) + " " + mainCtrl.getSelectedDate() + ", " + mainCtrl.getSelectedYear());
-
+                    selectDate(d, mainCtrl.getShownMonth(), mainCtrl.getShownYear());
                     mainCtrl.clearDetailPane();
                     mainCtrl.showAppointments();
                 }
@@ -66,6 +57,23 @@ public class SelectDateController {
     private void clearSelected() {
         if (this.selectedLabel != null) {
             this.selectedLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        }
+    }
+
+    public void selectDate(int d, int month, int year) {
+        clearSelected();
+        mainCtrl.setSelectedDate(d);
+        mainCtrl.setSelectedMonth(month);
+        mainCtrl.setSelectedYear(year);
+        mainCtrl.getSelectedDateLabel().setText(Calendar.getMonthName(mainCtrl.getSelectedMonth()) + " " + mainCtrl.getSelectedDate() + ", " + mainCtrl.getSelectedYear());
+        if (month == mainCtrl.getShownMonth() && year == mainCtrl.getShownYear()) {
+            for (Label dateLabel:dateLabels) {
+                if (dateLabel.getText().equals(String.valueOf(d))) {
+                    selectedLabel = dateLabel;
+                    selectedLabel.setBackground(new Background(new BackgroundFill(selectedColor, CornerRadii.EMPTY, Insets.EMPTY)));
+                    break;
+                }
+            }
         }
     }
 

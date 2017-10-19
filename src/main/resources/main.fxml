@@ -6,8 +6,9 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.controllers.MainController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="620.0" minWidth="10.0" prefWidth="600.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.0" minWidth="10.0" prefWidth="400.0" />
@@ -57,7 +58,10 @@
       </GridPane>
       <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="600.0" prefWidth="400.0" GridPane.columnIndex="1">
          <children>
-            <Label fx:id="selectedDateLabel" alignment="CENTER" prefHeight="21.0" prefWidth="350.0" text="Selected Date" />
+            <Label fx:id="selectedDateLabel" alignment="CENTER" prefHeight="21.0" prefWidth="350.0" text="Selected Date">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
             <FlowPane fx:id="detailPanel" alignment="TOP_CENTER" prefHeight="474.0" prefWidth="348.0" style="-fx-border-color: black; -fx-border-style: solid;" />
          </children>
       </FlowPane>
