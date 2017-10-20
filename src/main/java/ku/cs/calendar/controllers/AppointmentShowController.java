@@ -29,7 +29,7 @@ public class AppointmentShowController {
 
     protected void showAppointments() {
         hideAppointments();
-        PriorityQueue<Appointment> appointments = mainCtrl.getCalendar().getAppointments(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear());
+        PriorityQueue<Appointment> appointments = mainCtrl.getCalendarManager().getAppointments(mainCtrl.getSelectedDate(), mainCtrl.getSelectedMonth(), mainCtrl.getSelectedYear());
         while (!appointments.isEmpty()) {
             final Appointment ap = appointments.poll();
             String title = ap.getTitle();

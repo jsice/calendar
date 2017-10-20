@@ -1,11 +1,11 @@
-package ku.cs.calendar.models;
+package ku.cs.calendar.services;
 
-import java.util.*;
+import java.util.HashMap;
 /**
  * Wiwadh Chinanuphandh
  * 5810400051
  */
-public class Calendar {
+public class CalendarUtils {
 
     private static HashMap<Integer, String> monthName = new HashMap<Integer, String>();
     private static HashMap<String, Integer> monthNum = new HashMap<String, Integer>();
@@ -50,33 +50,6 @@ public class Calendar {
         monthDay.put(12, 31);
     }
 
-    private PriorityQueue<Appointment> appointments;
-
-    public Calendar() {
-        this.appointments = new PriorityQueue<Appointment>();
-    }
-
-    public void addAppointment(Appointment ap) {
-        this.appointments.add(ap);
-    }
-
-    public PriorityQueue<Appointment> getAppointments(int date, int month, int year) {
-        PriorityQueue<Appointment> aps = new PriorityQueue<Appointment>();
-        for (Appointment ap: this.appointments) {
-            if (ap.isOnTheDate(date, month, year))
-                aps.add(ap);
-        }
-        return aps;
-    }
-
-    public boolean hasAppointmentsOnDate(int date, int month, int year) {
-
-        return getAppointments(date, month, year).size() != 0;
-    }
-
-    public void removeAppointment(Appointment ap) {
-        this.appointments.remove(ap);
-    }
 
     public static String getMonthName(int m) {
         if (m < 1 || m > 12) return null;
@@ -108,5 +81,4 @@ public class Calendar {
             if (d > 0 && d <= monthDay.get(m)) return true;
         return false;
     }
-
 }

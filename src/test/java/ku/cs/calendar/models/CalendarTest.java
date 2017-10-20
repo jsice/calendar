@@ -1,8 +1,12 @@
 package ku.cs.calendar.models;
 
+import ku.cs.calendar.datasources.DataSource;
+import ku.cs.calendar.services.CalendarManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.ArrayList;
 
 /**
  * Wiwadh Chinanuphandh
@@ -10,11 +14,27 @@ import org.junit.jupiter.api.Assertions;
  */
 public class CalendarTest {
 
-    private Calendar c;
+    private CalendarManager c;
 
     @BeforeEach
     public void setUp() throws Exception {
-        c = new Calendar();
+        c = new CalendarManager(new DataSource() {
+            public ArrayList<Appointment> getAllAppointments() {
+                return null;
+            }
+
+            public Appointment insertAppointment(Appointment ap) {
+                return null;
+            }
+
+            public void updateAppointment(Appointment ap) {
+
+            }
+
+            public void deleteAppointment(Appointment ap) {
+
+            }
+        });
     }
 
     @Test

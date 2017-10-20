@@ -5,7 +5,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.models.Calendar;
+import ku.cs.calendar.services.CalendarUtils;
 import ku.cs.calendar.models.Date;
 /**
  * Wiwadh Chinanuphandh
@@ -32,8 +32,7 @@ public class AppointmentAddController {
             Appointment ap = new Appointment(new Date(selectedDate, selectedMonth , selectedYear), Integer.parseInt(hrField.getText()), Integer.parseInt(minField.getText()), repeatedMode);
             if (!titleField.getText().equals("")) ap.setTitle(titleField.getText());
             if (!descriptionField.getText().equals("")) ap.setDescription(descriptionField.getText());
-            ap = this.mainCtrl.getDataSource().insertAppointment(ap);
-            this.mainCtrl.getCalendar().addAppointment(ap);
+            this.mainCtrl.getCalendarManager().addAppointment(ap);
             this.mainCtrl.selectDate(selectedDate, selectedMonth, selectedYear);
             back();
         }
@@ -100,7 +99,7 @@ public class AppointmentAddController {
         }
 
         if (date != 0 && month != 0 && year != 0) {
-            if (!Calendar.isValidDate(date, month, year)) {
+            if (!CalendarUtils.isValidDate(date, month, year)) {
                 dField.setStyle("-fx-control-inner-background: Red");
                 mField.setStyle("-fx-control-inner-background: Red");
                 yField.setStyle("-fx-control-inner-background: Red");

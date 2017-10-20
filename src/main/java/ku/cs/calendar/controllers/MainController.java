@@ -7,15 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import ku.cs.calendar.databases.DataSource;
-import ku.cs.calendar.databases.FileDataSource;
-import ku.cs.calendar.databases.MySQLDataSource;
-import ku.cs.calendar.databases.SQLiteDataSource;
 import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.models.Calendar;
+import ku.cs.calendar.services.CalendarManager;
+import ku.cs.calendar.services.CalendarUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 /**
@@ -31,13 +29,12 @@ public class MainController {
     private AppointmentEditController apEditCtrl;
     private AppointmentAddController apAddCtrl;
     private AppointmentShowController apShowCtrl;
-    private DataSource dataSource;
     private int selectedYear;
     private int selectedMonth;
     private int selectedDate;
     private int shownYear;
     private int shownMonth;
-    private Calendar calendar;
+    private CalendarManager calendarManager;
     private FlowPane selectDatePane, apShowPane;
     private GridPane selectMonthPane, apDetailPane, apEditPane, apAddPane;
 
@@ -51,10 +48,8 @@ public class MainController {
     private Button mainBtn;
 
     public void init() throws IOException {
-        this.calendar = new Calendar();
-//        this.dataSource = new FileDataSource("test_calendar_appointments.txt");
-        this.dataSource = new SQLiteDataSource("test_calendar_appointments.db");
-//        this.dataSource = new MySQLDataSource("10.2.43.33", "3306", "test_calendar_appointment");
+        ApplicationContext bf = new ClassPathXmlApplicationContext("config.xml");
+        this.calendarManager = (CalendarManager) bf.getBean("calendarManager");
         FXMLLoader selectMonthPaneLoader = new FXMLLoader(getClass().getResource("/select_month.fxml"));
         FXMLLoader selectDatePaneLoader = new FXMLLoader(getClass().getResource("/select_date.fxml"));
         FXMLLoader apDetailPaneLoader = new FXMLLoader(getClass().getResource("/ap_detail.fxml"));
@@ -85,16 +80,7 @@ public class MainController {
         this.apShowCtrl = apShowPaneLoader.getController();
         this.apShowCtrl.setMainCtrl(this);
 
-        this.loadAppointments();
-
         this.setToday();
-    }
-
-    private void loadAppointments() {
-        ArrayList<Appointment> appointments = this.dataSource.getAllAppointments();
-        for (Appointment ap: appointments) {
-            this.calendar.addAppointment(ap);
-        }
     }
 
     private void setToday() {
@@ -104,8 +90,8 @@ public class MainController {
         selectedDate = today.get(java.util.Calendar.DAY_OF_MONTH);
         shownMonth = selectedMonth;
         shownYear = selectedYear;
-        mainBtn.setText(Calendar.getMonthName(selectedMonth) + ", " + selectedYear);
-        selectedDateLabel.setText(Calendar.getMonthName(selectedMonth) + " " + selectedDate + ", " + selectedYear);
+        mainBtn.setText(CalendarUtils.getMonthName(selectedMonth) + ", " + selectedYear);
+        selectedDateLabel.setText(CalendarUtils.getMonthName(selectedMonth) + " " + selectedDate + ", " + selectedYear);
         this.selectDateCtrl.setDates();
         this.showAppointments();
     }
@@ -148,7 +134,7 @@ public class MainController {
     }
 
     private void setShownMonthYear() {
-        mainBtn.setText(Calendar.getMonthName(shownMonth) + ", " + shownYear);
+        mainBtn.setText(CalendarUtils.getMonthName(shownMonth) + ", " + shownYear);
     }
 
     @FXML
@@ -262,12 +248,8 @@ public class MainController {
         return apEditPane;
     }
 
-    protected Calendar getCalendar() {
-        return calendar;
-    }
-
-    public DataSource getDataSource() {
-        return dataSource;
+    protected CalendarManager getCalendarManager() {
+        return calendarManager;
     }
 
     public GridPane getApAddPane() {

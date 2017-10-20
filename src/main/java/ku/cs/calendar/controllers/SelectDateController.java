@@ -8,11 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.models.Calendar;
+import ku.cs.calendar.services.CalendarUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -65,7 +62,7 @@ public class SelectDateController {
         mainCtrl.setSelectedDate(d);
         mainCtrl.setSelectedMonth(month);
         mainCtrl.setSelectedYear(year);
-        mainCtrl.getSelectedDateLabel().setText(Calendar.getMonthName(mainCtrl.getSelectedMonth()) + " " + mainCtrl.getSelectedDate() + ", " + mainCtrl.getSelectedYear());
+        mainCtrl.getSelectedDateLabel().setText(CalendarUtils.getMonthName(mainCtrl.getSelectedMonth()) + " " + mainCtrl.getSelectedDate() + ", " + mainCtrl.getSelectedYear());
         if (month == mainCtrl.getShownMonth() && year == mainCtrl.getShownYear()) {
             for (Label dateLabel:dateLabels) {
                 if (dateLabel.getText().equals(String.valueOf(d))) {
@@ -84,7 +81,7 @@ public class SelectDateController {
         int day = d.get(java.util.Calendar.DAY_OF_WEEK) - 1;
         int dNum = 1;
         for (int i = 0; i < dateLabels.length; i++) {
-            if (i >= day && dNum <= Calendar.getMonthDay(m, y)) {
+            if (i >= day && dNum <= CalendarUtils.getMonthDay(m, y)) {
                 dateLabels[i].setText(dNum+"");
                 dNum++;
             }

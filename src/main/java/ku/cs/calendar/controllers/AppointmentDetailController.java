@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.models.Calendar;
+import ku.cs.calendar.services.CalendarUtils;
 
 /**
  * Wiwadh Chinanuphandh
@@ -26,7 +26,7 @@ public class AppointmentDetailController {
         title.setText(appointment.getTitle());
         date.setText(String.format("%02d/%02d/%04d (%s %02d, %d)",
                 appointment.getDate().getDate(), appointment.getDate().getMonth(), appointment.getDate().getYear(),
-                Calendar.getMonthName(appointment.getDate().getMonth()), appointment.getDate().getDate(), appointment.getDate().getYear()));
+                CalendarUtils.getMonthName(appointment.getDate().getMonth()), appointment.getDate().getDate(), appointment.getDate().getYear()));
         dateLabel.setText("Start Date:");
         String repeatedMode = "";
         int r = appointment.getRepeated();

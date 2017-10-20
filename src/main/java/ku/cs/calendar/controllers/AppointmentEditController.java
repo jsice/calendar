@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.models.Calendar;
+import ku.cs.calendar.services.CalendarUtils;
 import ku.cs.calendar.models.Date;
 /**
  * Wiwadh Chinanuphandh
@@ -32,17 +32,8 @@ public class AppointmentEditController {
             appointment.setHr(Integer.parseInt(hr.getText()));
             appointment.setMin(Integer.parseInt(min.getText()));
             appointment.setDate(new Date(Integer.parseInt(date.getText()), Integer.parseInt(month.getText()), Integer.parseInt(year.getText())));
-            int repeated = appointment.getRepeated();
-            int newRepeated = repeatedComboBox.getSelectionModel().getSelectedIndex();
-            if ((repeated == Appointment.REPEATED_NEVER && newRepeated != Appointment.REPEATED_NEVER) ||
-                    (newRepeated == Appointment.REPEATED_NEVER && repeated != Appointment.REPEATED_NEVER) ) {
-                this.mainCtrl.getCalendar().removeAppointment(appointment);
-                appointment.setRepeated(newRepeated);
-                this.mainCtrl.getCalendar().addAppointment(appointment);
-            } else {
-                appointment.setRepeated(newRepeated);
-            }
-            this.mainCtrl.getDataSource().updateAppointment(appointment);
+            appointment.setRepeated(repeatedComboBox.getSelectionModel().getSelectedIndex());
+            this.mainCtrl.getCalendarManager().updateAppointment(appointment);
 
             back();
         }
@@ -55,8 +46,7 @@ public class AppointmentEditController {
 
     @FXML
     protected void deleteThisAppointment(ActionEvent e){
-        this.mainCtrl.getCalendar().removeAppointment(appointment);
-        this.mainCtrl.getDataSource().deleteAppointment(appointment);
+        this.mainCtrl.getCalendarManager().removeAppointment(appointment);
         this.mainCtrl.getDetailPanel().getChildren().remove(this.mainCtrl.getApEditPane());
         this.mainCtrl.showAppointments();
     }
@@ -121,7 +111,7 @@ public class AppointmentEditController {
         }
 
         if (date != 0 && month != 0 && year != 0) {
-            if (!Calendar.isValidDate(date, month, year)) {
+            if (!CalendarUtils.isValidDate(date, month, year)) {
                 this.date.setStyle("-fx-control-inner-background: Red");
                 this.month.setStyle("-fx-control-inner-background: Red");
                 this.year.setStyle("-fx-control-inner-background: Red");

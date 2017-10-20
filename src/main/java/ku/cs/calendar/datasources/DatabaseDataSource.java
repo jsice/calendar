@@ -1,4 +1,4 @@
-package ku.cs.calendar.databases;
+package ku.cs.calendar.datasources;
 
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.models.Date;

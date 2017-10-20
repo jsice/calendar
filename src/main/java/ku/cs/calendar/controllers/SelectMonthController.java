@@ -3,7 +3,8 @@ package ku.cs.calendar.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import ku.cs.calendar.models.Calendar;
+import ku.cs.calendar.services.CalendarUtils;
+
 /**
  * Wiwadh Chinanuphandh
  * 5810400051
@@ -18,12 +19,12 @@ public class SelectMonthController {
 
     @FXML
     private void selectMonth(ActionEvent e) {
-        int m = Calendar.getMonthNum(((Button)e.getSource()).getText());
+        int m = CalendarUtils.getMonthNum(((Button)e.getSource()).getText());
         mainCtrl.setShownMonth(m);
         mainCtrl.getMainPanel().getChildren().remove(mainCtrl.getSelectMonthPane());
         mainCtrl.getMainPanel().getChildren().add(mainCtrl.getSelectDatePane());
         mainCtrl.setDatesInMonth();
-        mainCtrl.getMainBtn().setText(Calendar.getMonthName(mainCtrl.getShownMonth()) + ", " + mainCtrl.getShownYear());
+        mainCtrl.getMainBtn().setText(CalendarUtils.getMonthName(mainCtrl.getShownMonth()) + ", " + mainCtrl.getShownYear());
 
         mainCtrl.clearDetailPane();
         mainCtrl.showAppointments();
