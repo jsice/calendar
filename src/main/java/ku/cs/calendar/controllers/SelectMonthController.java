@@ -3,7 +3,7 @@ package ku.cs.calendar.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import ku.cs.calendar.services.CalendarUtils;
+import ku.cs.calendar.utils.CalendarUtils;
 
 /**
  * Wiwadh Chinanuphandh

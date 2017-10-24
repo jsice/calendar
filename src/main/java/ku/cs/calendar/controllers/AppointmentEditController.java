@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.services.CalendarUtils;
+import ku.cs.calendar.models.AppointmentNeverRepeatState;
+import ku.cs.calendar.utils.AppointmentRepeatStateUtils;
+import ku.cs.calendar.utils.CalendarUtils;
 import ku.cs.calendar.models.Date;
 /**
  * Wiwadh Chinanuphandh
@@ -32,7 +34,7 @@ public class AppointmentEditController {
             appointment.setHr(Integer.parseInt(hr.getText()));
             appointment.setMin(Integer.parseInt(min.getText()));
             appointment.setDate(new Date(Integer.parseInt(date.getText()), Integer.parseInt(month.getText()), Integer.parseInt(year.getText())));
-            appointment.setRepeated(repeatedComboBox.getSelectionModel().getSelectedIndex());
+            appointment.setRepeated(AppointmentRepeatStateUtils.getInstanceOfState(repeatedComboBox.getSelectionModel().getSelectedItem()));
             this.mainCtrl.getCalendarManager().updateAppointment(appointment);
 
             back();
@@ -66,9 +68,10 @@ public class AppointmentEditController {
         year.setText(appointment.getDate().getYear()+"");
         title.setText(appointment.getTitle());
         description.setText(appointment.getDescription());
-        this.repeatedComboBox.getSelectionModel().select(appointment.getRepeated());
+        String repeatState = AppointmentRepeatStateUtils.getNameOfState(appointment.getRepeated());
+        this.repeatedComboBox.getSelectionModel().select(repeatState);
         dateLabel.setText("Start Date:");
-        if (appointment.getRepeated() == Appointment.REPEATED_NEVER) dateLabel.setText("Date:");
+        if (appointment.getRepeated().getClass() == AppointmentNeverRepeatState.class) dateLabel.setText("Date:");
         date.setStyle("-fx-control-inner-background: White");
         month.setStyle("-fx-control-inner-background: White");
         year.setStyle("-fx-control-inner-background: White");

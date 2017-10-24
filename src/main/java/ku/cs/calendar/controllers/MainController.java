@@ -9,7 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import ku.cs.calendar.models.Appointment;
 import ku.cs.calendar.services.CalendarManager;
-import ku.cs.calendar.services.CalendarUtils;
+import ku.cs.calendar.utils.CalendarUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

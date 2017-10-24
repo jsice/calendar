@@ -9,9 +9,9 @@
         <constructor-arg ref="dataSource" />
     </bean>
 
-    <bean id="dataSource" class="ku.cs.calendar.datasources.SQLiteDataSource">
-        <constructor-arg value="test_calendar_appointments.db" />
-    </bean>
+    <!--<bean id="dataSource" class="ku.cs.calendar.datasources.SQLiteDataSource">-->
+        <!--<constructor-arg value="test_calendar.db" />-->
+    <!--</bean>-->
 
     <!--<bean id="dataSource" class="ku.cs.calendar.datasources.MySQLDataSource">-->
         <!--<constructor-arg value="10.2.43.33" />-->
@@ -19,9 +19,9 @@
         <!--<constructor-arg value="test_calendar_appointment" />-->
     <!--</bean>-->
 
-    <!--<bean id="dataSource" class="ku.cs.calendar.datasources.FileDataSource">-->
-        <!--<constructor-arg value="test_calendar_appointments.txt" />-->
-    <!--</bean>-->
+    <bean id="dataSource" class="ku.cs.calendar.datasources.FileDataSource">
+        <constructor-arg value="test_calendar.txt" />
+    </bean>
 
 </beans>
 

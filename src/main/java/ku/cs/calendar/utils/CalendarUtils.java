@@ -1,4 +1,4 @@
-package ku.cs.calendar.services;
+package ku.cs.calendar.utils;
 
 import java.util.HashMap;
 /**

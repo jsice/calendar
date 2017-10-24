@@ -1,6 +1,7 @@
 package ku.cs.calendar.datasources;
 
 import ku.cs.calendar.models.Appointment;
+import ku.cs.calendar.utils.AppointmentRepeatStateUtils;
 import ku.cs.calendar.models.Date;
 
 import java.sql.*;
@@ -21,27 +22,7 @@ public abstract class DatabaseDataSource implements DataSource {
         }
     }
 
-    void createDatabase() {
-        try {
-            connect();
-            DatabaseMetaData md = conn.getMetaData();
-            ResultSet rs = md.getTables(null, null, "appointments", null);
-            boolean appointmentsTableExist = false;
-            while (rs.next()) {
-                if ("appointments".equals(rs.getString(3).toLowerCase())) appointmentsTableExist = true;
-            }
-            if (!appointmentsTableExist) {
-                String query = "CREATE TABLE appointments ( `id` INTEGER PRIMARY KEY AUTO_INCREMENT, `title` TEXT, `description` TEXT, `date` TEXT, `time` TEXT, `REPEATED` INTEGER )";
-                Statement statement = conn.createStatement();
-                statement.execute(query);
-            }
-            close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    abstract void createDatabase();
 
     public ArrayList<Appointment> getAllAppointments() {
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
@@ -56,10 +37,10 @@ public abstract class DatabaseDataSource implements DataSource {
                 String description = resultSet.getString(3);
                 String d = resultSet.getString(4);
                 String time = resultSet.getString(5);
-                int repeated = resultSet.getInt(6);
+                String repeated = resultSet.getString(6);
                 Appointment ap = new Appointment(new Date(Integer.parseInt(d.substring(0,2)),
                         Integer.parseInt(d.substring(2,4)), Integer.parseInt(d.substring(4))),
-                        Integer.parseInt(time.substring(0,2)), Integer.parseInt(time.substring(2)), repeated);
+                        Integer.parseInt(time.substring(0,2)), Integer.parseInt(time.substring(2)), AppointmentRepeatStateUtils.getInstanceOfState(repeated));
                 ap.setTitle(title);
                 ap.setDescription(description);
                 ap.setId(id);
@@ -81,8 +62,8 @@ public abstract class DatabaseDataSource implements DataSource {
             String description = ap.getDescription();
             String formattedDate = String.format("%02d%02d%04d", ap.getDate().getDate(), ap.getDate().getMonth(), ap.getDate().getYear());
             String formattedTime = String.format("%02d%02d", ap.getHr(), ap.getMin());
-            int repeated = ap.getRepeated();
-            String query = String.format("INSERT INTO Appointments(title, description, date, time, repeated) values (\"%s\",\"%s\",\"%s\",\"%s\",%d)", title, description, formattedDate, formattedTime, repeated);
+            String repeatState = AppointmentRepeatStateUtils.getNameOfState(ap.getRepeated());
+            String query = String.format("INSERT INTO Appointments(title, description, date, time, repeated) values (\"%s\",\"%s\",\"%s\",\"%s\",\"%s\")", title, description, formattedDate, formattedTime, repeatState);
             Statement statement = conn.createStatement();
             statement.execute(query);
             query = "SELECT max(ID) FROM Appointments";
@@ -108,8 +89,7 @@ public abstract class DatabaseDataSource implements DataSource {
             String description = ap.getDescription();
             String formattedDate = String.format("%02d%02d%04d", ap.getDate().getDate(), ap.getDate().getMonth(), ap.getDate().getYear());
             String formattedTime = String.format("%02d%02d", ap.getHr(), ap.getMin());
-            int repeated = ap.getRepeated();
-            String query = String.format("UPDATE Appointments SET TITLE = \"%s\", DESCRIPTION = \"%s\", DATE = \"%s\", TIME = \"%s\", REPEATED = %d WHERE ID = %d", title, description, formattedDate, formattedTime, repeated, id);
+            String repeatState = AppointmentRepeatStateUtils.getNameOfState(ap.getRepeated());String query = String.format("UPDATE Appointments SET TITLE = \"%s\", DESCRIPTION = \"%s\", DATE = \"%s\", TIME = \"%s\", REPEATED = \"%s\" WHERE ID = %d", title, description, formattedDate, formattedTime, repeatState, id);
             Statement statement = conn.createStatement();
             statement.execute(query);
             close();

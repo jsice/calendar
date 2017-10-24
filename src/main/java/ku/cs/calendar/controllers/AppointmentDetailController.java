@@ -4,7 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.services.CalendarUtils;
+import ku.cs.calendar.utils.AppointmentRepeatStateUtils;
+import ku.cs.calendar.utils.CalendarUtils;
 
 /**
  * Wiwadh Chinanuphandh
@@ -28,19 +29,8 @@ public class AppointmentDetailController {
                 appointment.getDate().getDate(), appointment.getDate().getMonth(), appointment.getDate().getYear(),
                 CalendarUtils.getMonthName(appointment.getDate().getMonth()), appointment.getDate().getDate(), appointment.getDate().getYear()));
         dateLabel.setText("Start Date:");
-        String repeatedMode = "";
-        int r = appointment.getRepeated();
-        if (r == Appointment.REPEATED_NEVER) {
-            repeatedMode = "Never";
-            dateLabel.setText("Date:");
-        } else if (r == Appointment.REPEATED_DAILY) {
-            repeatedMode = "Daily";
-        } else if (r == Appointment.REPEATED_WEEKLY) {
-            repeatedMode = "Weekly";
-        } else if (r == Appointment.REPEATED_MONTHLY) {
-            repeatedMode = "Monthly";
-        }
-        repeated.setText(repeatedMode);
+        String repeatState = AppointmentRepeatStateUtils.getNameOfState(appointment.getRepeated());
+        repeated.setText(repeatState);
         description.setText(appointment.getDescription());
     }
 

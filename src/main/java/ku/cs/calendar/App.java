@@ -6,6 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ku.cs.calendar.controllers.MainController;
+import ku.cs.calendar.models.Appointment;
+import ku.cs.calendar.models.Date;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Wiwadh Chinanuphandh
@@ -25,8 +29,7 @@ public class App extends Application {
 
     }
 
-    public static void main(String[] args )
-    {
+    public static void main(String[] args ) {
         launch(args);
     }
 }

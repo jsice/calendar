@@ -5,7 +5,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import ku.cs.calendar.models.Appointment;
-import ku.cs.calendar.services.CalendarUtils;
+import ku.cs.calendar.utils.AppointmentRepeatStateUtils;
+import ku.cs.calendar.utils.CalendarUtils;
 import ku.cs.calendar.models.Date;
 /**
  * Wiwadh Chinanuphandh
@@ -28,8 +29,10 @@ public class AppointmentAddController {
             int selectedDate = Integer.parseInt(dField.getText());
             int selectedMonth = Integer.parseInt(mField.getText());
             int selectedYear = Integer.parseInt(yField.getText());
-            int repeatedMode = repeatedComboBox.getSelectionModel().getSelectedIndex();
-            Appointment ap = new Appointment(new Date(selectedDate, selectedMonth , selectedYear), Integer.parseInt(hrField.getText()), Integer.parseInt(minField.getText()), repeatedMode);
+
+            String repeatedMode = repeatedComboBox.getSelectionModel().getSelectedItem();
+
+            Appointment ap = new Appointment(new Date(selectedDate, selectedMonth , selectedYear), Integer.parseInt(hrField.getText()), Integer.parseInt(minField.getText()), AppointmentRepeatStateUtils.getInstanceOfState(repeatedMode));
             if (!titleField.getText().equals("")) ap.setTitle(titleField.getText());
             if (!descriptionField.getText().equals("")) ap.setDescription(descriptionField.getText());
             this.mainCtrl.getCalendarManager().addAppointment(ap);

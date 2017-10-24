@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import ku.cs.calendar.services.CalendarUtils;
+import ku.cs.calendar.utils.CalendarUtils;
 
 import java.util.GregorianCalendar;
 
