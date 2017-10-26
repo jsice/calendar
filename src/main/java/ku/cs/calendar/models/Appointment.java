@@ -8,12 +8,6 @@ import java.io.Serializable;
  */
 public class Appointment implements Comparable<Appointment>, Serializable {
 
-    public static int REPEATED_NEVER = 0;
-    public static int REPEATED_DAILY = 1;
-    public static int REPEATED_WEEKLY = 2;
-    public static int REPEATED_MONTHLY = 3;
-
-
     private int id = -1;
     private Date date;
     private int hr;

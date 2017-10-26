@@ -3,7 +3,10 @@ package ku.cs.calendar.utils;
 import ku.cs.calendar.models.*;
 
 import java.util.HashMap;
-
+/**
+ * Wiwadh Chinanuphandh
+ * 5810400051
+ */
 public class AppointmentRepeatStateUtils {
 
     private static HashMap<String, AppointmentRepeatState> states;
