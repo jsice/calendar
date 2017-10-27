@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.calendar.client.controllers.AppointmentAddController">
+   <columnConstraints>
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="121.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="231.0" minWidth="10.0" prefWidth="227.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="392.0" minHeight="10.0" prefHeight="124.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+         <children>
+            <Label text="Title:" />
+         </children>
+      </FlowPane>
+      <FlowPane alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+         <children>
+            <Label text="Description:" />
+         </children>
+      </FlowPane>
+      <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <TextArea fx:id="descriptionField" prefHeight="121.0" prefWidth="200.0" />
+         </children>
+      </FlowPane>
+      <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#ok" prefWidth="126.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <FlowPane alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label text="Date:" />
+            <Label text="(dd/mm/yyyy)" />
+         </children>
+      </FlowPane>
+      <FlowPane alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+         <children>
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="105.0" text="Time:" />
+            <Label text="(hh:mm)" />
+         </children>
+      </FlowPane>
+      <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TextField fx:id="hrField" prefHeight="30.0" prefWidth="40.0" />
+            <Label text=":" />
+            <TextField fx:id="minField" prefHeight="30.0" prefWidth="40.0" />
+         </children>
+      </FlowPane>
+      <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <children>
+            <TextField fx:id="dField" prefHeight="30.0" prefWidth="40.0" />
+            <Label text="/" />
+            <TextField fx:id="mField" prefHeight="30.0" prefWidth="40.0" />
+            <Label text="/" />
+            <TextField fx:id="yField" prefHeight="30.0" prefWidth="80.0" />
+         </children>
+      </FlowPane>
+      <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <TextField fx:id="titleField" prefHeight="30.0" prefWidth="200.0" />
+         </children>
+      </FlowPane>
+      <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+         <children>
+            <Label text="Repeated:" />
+         </children>
+      </FlowPane>
+      <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <ComboBox fx:id="repeatedComboBox" prefWidth="200.0" />
+         </children>
+      </FlowPane>
+   </children>
+</GridPane>

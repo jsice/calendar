@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans	xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="calendarService" class="ku.cs.calendar.server.services.CalendarService">
+        <constructor-arg ref="dataSource" />
+    </bean>
+
+    <bean id="dataSource" class="ku.cs.calendar.server.datasources.SQLiteDataSource">
+        <constructor-arg value="test_calendar.db" />
+    </bean>
+
+    <!--<bean id="dataSource" class="ku.cs.calendar.server.datasources.MySQLDataSource">-->
+    <!--<constructor-arg value="10.2.43.33" />-->
+    <!--<constructor-arg value="3306" />-->
+    <!--<constructor-arg value="test_calendar_appointment" />-->
+    <!--</bean>-->
+
+    <!--<bean id="dataSource" class="ku.cs.calendar.server.datasources.FileDataSource">-->
+        <!--<constructor-arg value="test_calendar.txt" />-->
+    <!--</bean>-->
+
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="service" ref="calendarService" />
+        <property name="serviceName" value="CalendarService" />
+        <property name="serviceInterface" value="ku.cs.calendar.common.services.ICalendarService" />
+        <property name="registryPort" value="14000" />
+    </bean>
+
+</beans>
+
+
